@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-theme="light">
+<html data-theme="light" class="flex h-full">
   <head>
     <title><%= content_for(:title) || "Schoolworks Management System" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -17,9 +17,11 @@
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
-    </main>
+  <body class="bg-red-400 flex flex-1">
+    <%= render "layouts/navbar" do %>
+      <main class="flex w-full h-full bg-base-100">
+        <%= yield %>
+      </main>
+    <% end %>
   </body>
 </html>
