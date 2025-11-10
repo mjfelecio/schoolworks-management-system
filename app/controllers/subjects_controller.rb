@@ -25,8 +25,8 @@ class SubjectsController < ApplicationController
 
     respond_to do |format|
       if @subject.save
-        format.html { redirect_to @subject, notice: "Subject was successfully created." }
-        format.json { render :show, status: :created, location: @subject }
+        format.html { redirect_to :subjects, notice: "Subject was successfully created." }
+        format.json { render :index, status: :created, location: @subject }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @subject.errors, status: :unprocessable_entity }
