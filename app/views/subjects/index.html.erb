@@ -22,14 +22,13 @@
       <% end %>
     </div>
     <div class="divider mt-0 h-0"></div>
-    <%# Subject List %>
+    <%# Subject List Container %>
     <div id="subjects_list_container" class="flex flex-1 overflow-y-auto">
       <% if !@subjects.blank? %>
+        <%# Subject List %>
         <ul id="subjects_list" class="w-full divide-y divide-base-300">
           <% @subjects.each do |subject| %>
-            <%= link_to subject, data: { turbo_frame: "subject_details" } do%>
-              <%= render "subject", subject: subject %>
-            <% end %>
+            <%= render "subject", subject: subject %>
           <% end %>
         </ul>
       <% else %>
