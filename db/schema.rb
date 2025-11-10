@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_10_114052) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_10_122257) do
+  create_table "notes", force: :cascade do |t|
+    t.integer "schoolwork_id", null: false
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["schoolwork_id"], name: "index_notes_on_schoolwork_id"
+  end
+
   create_table "schoolworks", force: :cascade do |t|
     t.integer "subject_id", null: false
     t.integer "schoolwork_type", null: false
@@ -33,5 +41,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_10_114052) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "notes", "schoolworks"
   add_foreign_key "schoolworks", "subjects"
 end
