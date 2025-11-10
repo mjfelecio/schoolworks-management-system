@@ -27,14 +27,14 @@
       <% if !@subjects.blank? %>
         <ul class="w-full divide-y divide-base-300">
           <% @subjects.each do |subject| %>
-            <li class="flex items-center px-4 py-3 transition-colors duration-200 hover:bg-base-200 rounded-lg cursor-pointer">
-              <%= link_to subject, data: { turbo_frame: "subject_details" } do%>
+            <%= link_to subject, data: { turbo_frame: "subject_details" } do%>
+              <li id="<%= dom_id(subject) %>" class="flex items-center px-4 py-3 transition-colors duration-200 hover:bg-base-200 rounded-lg cursor-pointer">
                 <div aria-label="status" class="status status-neutral mr-3"></div>
                 <span class="flex-1 text-lg text-accent-content font-semibold">
                   <%= subject.name %>
                 </span>
-              <% end %>
-            </li>
+              </li>
+            <% end %>
           <% end %>
         </ul>
       <% else %>
@@ -49,10 +49,7 @@
   <div class="basis-[70%] flex flex-col gap-2">
     <%# Overview Card %>
     <%= turbo_frame_tag "subject_details" do %>
-      <div class="bg-base-100 border-2 border-base-300 rounded-2xl shadow-md p-4">
-        <h3 class="text-xl font-bold">Overview</h3>
-        Select a subject to view its details
-      </div>
+      <%= render "details_placeholder" %>
     <% end %>
     <%# School Works List %>
     <%= render "school_works", subject: @subjects.first %>

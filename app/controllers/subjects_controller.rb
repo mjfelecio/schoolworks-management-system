@@ -54,6 +54,7 @@ class SubjectsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to subjects_path, notice: "Subject was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
+      format.turbo_stream
     end
   end
 
