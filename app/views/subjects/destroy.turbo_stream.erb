@@ -1,4 +1,4 @@
 <%= turbo_stream.remove(dom_id(@subject)) %>
 <%= turbo_stream.replace("subject_details", partial: "subjects/details_placeholder") %>
-<%= turbo_stream.replace("subjects_list", partial: "subjects/no_subjects") %>
+<%= turbo_stream.replace("subjects_list_container", partial: "subjects/no_subjects") %>
 <%= turbo_stream.update("notice", "Subject was successfully destroyed.") %>

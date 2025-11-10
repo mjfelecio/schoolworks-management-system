@@ -16,24 +16,19 @@
         </svg>
         <h2 class="text-2xl font-semibold">Subjects</h2>
       </div>
-      <%= link_to new_subject_path, class: "btn btn-primary" do %>
+      <%= link_to new_subject_path, data: { turbo_frame: "modal_container" }, class: "btn btn-primary" do %>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-library-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 3m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 7.26a2.005 2.005 0 0 0 -1.012 1.737v10c0 1.1 .9 2 2 2h10c.75 0 1.158 -.385 1.5 -1" /><path d="M11 10h6" /><path d="M14 7v6" /></svg>
         New
       <% end %>
     </div>
     <div class="divider mt-0 h-0"></div>
     <%# Subject List %>
-    <div id="subjects_list" class="flex flex-1 overflow-y-auto">
+    <div id="subjects_list_container" class="flex flex-1 overflow-y-auto">
       <% if !@subjects.blank? %>
-        <ul class="w-full divide-y divide-base-300">
+        <ul id="subjects_list" class="w-full divide-y divide-base-300">
           <% @subjects.each do |subject| %>
             <%= link_to subject, data: { turbo_frame: "subject_details" } do%>
-              <li id="<%= dom_id(subject) %>" class="flex items-center px-4 py-3 transition-colors duration-200 hover:bg-base-200 rounded-lg cursor-pointer">
-                <div aria-label="status" class="status status-neutral mr-3"></div>
-                <span class="flex-1 text-lg text-accent-content font-semibold">
-                  <%= subject.name %>
-                </span>
-              </li>
+              <%= render "subject", subject: subject %>
             <% end %>
           <% end %>
         </ul>

@@ -13,6 +13,11 @@ class SubjectsController < ApplicationController
   # GET /subjects/new
   def new
     @subject = Subject.new
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   # GET /subjects/1/edit
@@ -27,9 +32,17 @@ class SubjectsController < ApplicationController
       if @subject.save
         format.html { redirect_to :subjects, notice: "Subject was successfully created." }
         format.json { render :index, status: :created, location: @subject }
+        format.turbo_stream
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @subject.errors, status: :unprocessable_entity }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace(
+            "modal_container",
+            partial: "subjects/form",
+            locals: { subject: @subject }
+          )
+        end
       end
     end
   end

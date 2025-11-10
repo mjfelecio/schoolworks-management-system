@@ -1,10 +1,6 @@
-<div id="<%= dom_id subject %>" class="w-full sm:w-auto my-5 space-y-5">
-  <div>
-    <strong class="block font-medium mb-1">Name:</strong>
+<li id="<%= dom_id(subject) %>" class="flex items-center px-4 py-3 transition-colors duration-200 hover:bg-base-200 rounded-lg cursor-pointer">
+  <div aria-label="status" class="status status-neutral mr-3"></div>
+  <span class="flex-1 text-lg text-accent-content font-semibold">
     <%= subject.name %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Description:</strong>
-    <%= subject.description %>
-  </div>
-</div>
+  </span>
+</li>

@@ -23,5 +23,7 @@
         <%= yield %>
       </main>
     <% end %>
+    <%= turbo_frame_tag "modal_container" do %>
+    <% end %>
   </body>
 </html>
