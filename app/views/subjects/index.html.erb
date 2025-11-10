@@ -1,29 +1,79 @@
 <% content_for :title, "Subjects" %>
-
-<div class="w-full">
+<div class="bg-base-200 flex flex-1 p-4 gap-2">
   <% if notice.present? %>
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
   <% end %>
-
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Subjects</h1>
-    <%= link_to "New subject", new_subject_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
-  </div>
-
-  <div id="subjects" class="min-w-full divide-y divide-gray-200 space-y-5">
-    <% if @subjects.any? %>
-      <% @subjects.each do |subject| %>
-        <div class="flex flex-col sm:flex-row justify-between items-center pb-5 sm:pb-0">
-          <%= render subject %>
-          <div class="w-full sm:w-auto flex flex-col sm:flex-row space-x-2 space-y-2">
-            <%= link_to "Show", subject, class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-            <%= link_to "Edit", edit_subject_path(subject), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-            <%= button_to "Destroy", subject, method: :delete, class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
-          </div>
+  <%# Subject List Section %>
+  <div class="basis-[30%] max-h-[600px] flex flex-col bg-base-100 border-2 border-base-300 rounded-2xl p-4 shadow-md">
+    <%# List Header %>
+    <div class="flex items-center justify-between gap-2 mb-4">
+      <div class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-book-2">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M19 4v16h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12z" />
+          <path d="M19 16h-12a2 2 0 0 0 -2 2" />
+          <path d="M9 8h6" />
+        </svg>
+        <h2 class="text-2xl font-semibold">Subjects</h2>
+      </div>
+      <%= link_to new_subject_path, class: "btn btn-primary" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-library-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 3m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 7.26a2.005 2.005 0 0 0 -1.012 1.737v10c0 1.1 .9 2 2 2h10c.75 0 1.158 -.385 1.5 -1" /><path d="M11 10h6" /><path d="M14 7v6" /></svg>
+        New
+      <% end %>
+    </div>
+    <div class="divider mt-0 h-0"></div>
+    <%# Subject List %>
+    <div class="flex flex-1 overflow-y-auto">
+      <% if !@subjects.blank? %>
+        <ul class="w-full divide-y divide-base-300">
+          <% @subjects.each do |subject| %>
+            <li class="flex items-center px-4 py-3 transition-colors duration-200 hover:bg-base-200 rounded-lg cursor-pointer">
+              <div aria-label="status" class="status status-neutral mr-3"></div>
+              <span class="flex-1 text-lg text-accent-content font-semibold">
+                <%= subject.name %>
+              </span>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <div class="flex flex-1 flex-col items-center pt-32 text-gray-500">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-notebook-off"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 4h9a2 2 0 0 1 2 2v9m-.179 3.828a2 2 0 0 1 -1.821 1.172h-11a1 1 0 0 1 -1 -1v-14m4 -1v1m0 4v13" /><path d="M13 8h2" /><path d="M3 3l18 18" /></svg>
+          No Subjects
         </div>
       <% end %>
-    <% else %>
-      <p class="text-center my-10">No subjects found.</p>
-    <% end %>
+    </div>
+  </div>
+  <%# Subject Display %>
+  <div class="basis-[70%] flex flex-col gap-2">
+    <%# Overview Card %>
+    <div class="bg-base-100 border-2 border-base-300 rounded-2xl shadow-md p-4">
+      <div class="flex items-center justify-between">
+        <h3 class="text-xl font-bold">Overview</h3>
+        <%# Edit %>
+        <div class="flex items-center">
+          <%= link_to edit_subject_path(@subjects.first), class: "btn btn-ghost btn-sm" do %>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>
+          <% end %>
+          <%# Delete %>
+          <%= button_to subject_path(@subjects.first), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-ghost btn-sm" do %>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7h16" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /><path d="M10 12l4 4m0 -4l-4 4" /></svg>
+          <% end %>
+        </div>
+      </div>
+      <p class="text-accent-content">
+        <span class="text-base-content font-semibold">Name:</span>
+        <%= @subjects.first.name %>
+      </p>
+      <p class="text-accent-content">
+        <span class="text-base-content font-semibold">Description:</span>
+        <%= @subjects.first.description || "N/A" %>
+      </p>
+    </div>
+    <%# School Works List %>
+    <div class="bg-base-100 flex-1 border-2 border-base-300 rounded-2xl shadow-md p-4">
+      <h3 class="text-2xl text-center font-bold">School Works</h3>
+      <div class="divider h-0"></div>
+      <p class="text-accent-content text-center">Schoolworks will be listed here in the future</p>
+    </div>
   </div>
 </div>
