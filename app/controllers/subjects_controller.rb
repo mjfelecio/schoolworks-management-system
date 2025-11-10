@@ -16,12 +16,28 @@ class SubjectsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.turbo_stream
+      format.turbo_stream do
+          render turbo_stream: turbo_stream.replace(
+            "modal_container",
+            partial: "subjects/form",
+            locals: { subject: @subject }
+          )
+        end
     end
   end
 
   # GET /subjects/1/edit
   def edit
+    respond_to do |format|
+      format.html
+      format.turbo_stream do
+          render turbo_stream: turbo_stream.replace(
+            "modal_container",
+            partial: "subjects/form",
+            locals: { subject: @subject }
+          )
+        end
+    end
   end
 
   # POST /subjects or /subjects.json
@@ -53,9 +69,17 @@ class SubjectsController < ApplicationController
       if @subject.update(subject_params)
         format.html { redirect_to @subject, notice: "Subject was successfully updated.", status: :see_other }
         format.json { render :show, status: :ok, location: @subject }
+        format.turbo_stream
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @subject.errors, status: :unprocessable_entity }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace(
+            "modal_container",
+            partial: "subjects/form",
+            locals: { subject: @subject }
+          )
+        end
       end
     end
   end
