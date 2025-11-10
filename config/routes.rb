@@ -1,26 +1,19 @@
 Rails.application.routes.draw do
-  get "notes/create"
-  get "notes/update"
-  get "notes/destroy"
-  get "schoolworks/index"
-  get "schoolworks/show"
-  get "schoolworks/new"
-  get "schoolworks/create"
-  get "schoolworks/edit"
-  get "schoolworks/update"
-  get "schoolworks/destroy"
-  resources :subjects
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
-
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-
-  # Defines the root path route ("/")
   root "home#index"
   get "home/showcase", to: "home#showcase"
+  get "dashboard", to: "home#index"
+
+  resources :subjects do
+    resources :schoolworks, only: [ :new, :create ]
+  end
+
+  resources :schoolworks do
+    resources :notes, only: [ :create, :destroy ]
+    member do
+      delete "remove_file/:file_id", to: "schoolworks#remove_file", as: "remove_file"
+    end
+  end
+
+  # Health check
+  get "up" => "rails/health#show", as: :rails_health_check
 end
