@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  get "notes/create"
+  get "notes/update"
+  get "notes/destroy"
+  get "schoolworks/index"
+  get "schoolworks/show"
+  get "schoolworks/new"
+  get "schoolworks/create"
+  get "schoolworks/edit"
+  get "schoolworks/update"
+  get "schoolworks/destroy"
   resources :subjects
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
