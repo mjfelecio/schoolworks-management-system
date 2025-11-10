@@ -87,6 +87,7 @@ class SubjectsController < ApplicationController
   # DELETE /subjects/1 or /subjects/1.json
   def destroy
     @subject.destroy!
+    @subject_count = Subject.count
 
     respond_to do |format|
       format.html { redirect_to subjects_path, notice: "Subject was successfully destroyed.", status: :see_other }
