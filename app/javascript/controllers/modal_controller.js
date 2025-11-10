@@ -5,16 +5,34 @@ export default class extends Controller {
   static targets = ["dialog"]
 
   connect() {
-    const dialog = this.dialogTarget || this.element.tagName.toLowerCase() === "dialog" 
+    // Ensure we have a dialog element
+    this.dialog = this.dialogTarget || (this.element.tagName.toLowerCase() === "dialog" 
       ? this.element 
-      : this.element.querySelector("dialog")
+      : this.element.querySelector("dialog"))
 
-    if (!dialog) return
+    if (!this.dialog) {
+      console.warn("No <dialog> element found")
+      return
+    }
 
-    if (typeof dialog.showModal === "function") {
-      dialog.showModal()
+    this.openModal()
+  }
+
+  openModal() {
+    if (!this.dialog) return
+    if (typeof this.dialog.showModal === "function") {
+      this.dialog.showModal()
     } else {
       console.warn("Element is not a <dialog> or does not support showModal()")
+    }
+  }
+
+  closeModal() {
+    if (!this.dialog) return
+    if (typeof this.dialog.close === "function") {
+      this.dialog.close()
+    } else {
+      console.warn("Element is not a <dialog> or does not support close()")
     }
   }
 }
