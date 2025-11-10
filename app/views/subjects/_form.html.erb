@@ -1,5 +1,5 @@
 <%= turbo_frame_tag "modal_container" do %>
-  <dialog id="subject_modal" data-controller="modal" class="modal">
+  <dialog id="subject_modal" data-controller="modal" data-modal-target="dialog" class="modal">
     <div class="modal-box">
       <%= turbo_frame_tag "subject_modal_frame" do %>
         <h3 class="text-xl font-bold"><%= subject.new_record? ? "New Subject" : "Edit Subject" %></h3>

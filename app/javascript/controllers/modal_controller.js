@@ -2,16 +2,19 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="modal"
 export default class extends Controller {
+  static targets = ["dialog"]
+
   connect() {
-    console.log("Connected")
-    if (this.element.tagName.toLowerCase() === "dialog") {
-      this.element.showModal()
+    const dialog = this.dialogTarget || this.element.tagName.toLowerCase() === "dialog" 
+      ? this.element 
+      : this.element.querySelector("dialog")
+
+    if (!dialog) return
+
+    if (typeof dialog.showModal === "function") {
+      dialog.showModal()
     } else {
-      // If the modal container wraps the dialog
-      const dialog = this.element.querySelector("dialog")
-      if (dialog) dialog.showModal()
+      console.warn("Element is not a <dialog> or does not support showModal()")
     }
   }
 }
-
-
