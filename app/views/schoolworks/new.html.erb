@@ -1,4 +1,31 @@
-<div>
-  <h1 class="font-bold text-4xl">Schoolworks#new</h1>
-  <p>Find me in app/views/schoolworks/new.html.erb</p>
+<% content_for :title, "New Schoolwork" %>
+<div class="bg-base-200 flex flex-1 p-4">
+  <div class="container mx-auto max-w-5xl">
+    <%# Header %>
+    <div class="mb-6">
+      <div class="flex items-center gap-2 text-sm breadcrumbs mb-4">
+        <ul>
+          <li><%= link_to "Schoolworks", schoolworks_path, class: "link link-hover" %></li>
+          <li class="text-base-content/60">New</li>
+        </ul>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="bg-primary/10 p-3 rounded-box">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
+            <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
+            <path d="M9 12h6" />
+            <path d="M9 16h6" />
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-3xl font-bold">Create New Schoolwork</h1>
+          <p class="text-base-content/60 mt-1">Add a new assignment, project, exam, or other schoolwork item</p>
+        </div>
+      </div>
+    </div>
+    <%# Form %>
+    <%= render partial: "form", locals: { schoolwork: @schoolwork, subjects: @subjects } %>
+  </div>
 </div>

@@ -1,15 +1,18 @@
 class SchoolworksController < ApplicationController
+  before_action :set_subjects, only: [ :edit, :new, :show ]
+  before_action :set_schoolworks, only: [ :index ]
+  before_action :set_schoolwork, only: [ :show, :edit ]
+
   def index
-    @schoolworks = Schoolwork.all
   end
 
   def show
-    @schoolwork = Schoolwork.find(params[:id])
     @notes = @schoolwork.notes
     @note = Note.new
   end
 
   def new
+    @schoolwork = Schoolwork.new
   end
 
   def create
@@ -22,5 +25,19 @@ class SchoolworksController < ApplicationController
   end
 
   def destroy
+  end
+
+  private
+
+  def set_schoolwork
+    @schoolwork = Schoolwork.find(params[:id])
+  end
+
+  def set_schoolworks
+    @schoolworks = Schoolwork.all
+  end
+
+  def set_subjects
+    @subjects = Subject.all
   end
 end

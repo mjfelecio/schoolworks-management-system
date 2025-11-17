@@ -1,4 +1,31 @@
-<div>
-  <h1 class="font-bold text-4xl">Schoolworks#edit</h1>
-  <p>Find me in app/views/schoolworks/edit.html.erb</p>
+<% content_for :title, "Edit Schoolwork" %>
+<div class="bg-base-200 flex flex-1 p-4">
+  <div class="container mx-auto max-w-5xl">
+    <%# Header %>
+    <div class="mb-6">
+      <div class="flex items-center gap-2 text-sm breadcrumbs mb-4">
+        <ul>
+          <li><%= link_to "Schoolworks", schoolworks_path, class: "link link-hover" %></li>
+          <li><%= link_to @schoolwork.title, schoolwork_path(@schoolwork), class: "link link-hover" %></li>
+          <li class="text-base-content/60">Edit</li>
+        </ul>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="bg-accent/10 p-3 rounded-box">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+            <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+            <path d="M16 5l3 3" />
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-3xl font-bold">Edit Schoolwork</h1>
+          <p class="text-base-content/60 mt-1">Update "<%= @schoolwork.title %>"</p>
+        </div>
+      </div>
+    </div>
+    <%# Form %>
+    <%= render partial: "form", locals: { schoolwork: @schoolwork, subjects: @subjects } %>
+  </div>
 </div>
