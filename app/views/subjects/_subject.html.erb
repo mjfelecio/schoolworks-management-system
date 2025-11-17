@@ -1,5 +1,5 @@
-<%= link_to subject, data: { turbo_frame: "subject_details" } do %>
-  <li id="<%= dom_id(subject) %>" class="flex items-center px-4 py-3 transition-colors duration-200 hover:bg-base-200 rounded-lg cursor-pointer">
+<%= link_to subject, id: dom_id(subject), data: { turbo_frame: "subject_details" } do %>
+  <li class="flex items-center px-4 py-3 transition-colors duration-200 hover:bg-base-200 rounded-lg cursor-pointer">
     <div aria-label="status" class="status status-neutral mr-3"></div>
     <span class="flex-1 text-lg text-accent-content font-semibold">
       <%= subject.name %>
