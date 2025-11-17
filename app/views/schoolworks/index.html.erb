@@ -28,39 +28,6 @@
         New
       <% end %>
     </div>
-    <%# Filters %>
-    <div class="mb-4">
-      <%= form_with url: schoolworks_path, method: :get, class: "flex flex-col gap-2" do |f| %>
-        <div class="flex gap-2">
-          <%= f.select :subject_id, 
-              options_from_collection_for_select(Subject.alphabetical, :id, :name, params[:subject_id]), 
-              { include_blank: "All Subjects" }, 
-              class: "select select-bordered select-sm flex-1" %>
-          <%= f.select :schoolwork_type, 
-              options_for_select(Schoolwork.schoolwork_types.keys.map { |k| [k.titleize, k] }, params[:schoolwork_type]), 
-              { include_blank: "All Types" }, 
-              class: "select select-bordered select-sm flex-1" %>
-        </div>
-        <div class="flex gap-2">
-          <%= f.select :status, 
-              options_for_select(Schoolwork.statuses.keys.map { |k| [k.titleize, k] }, params[:status]), 
-              { include_blank: "All Statuses" }, 
-              class: "select select-bordered select-sm flex-1" %>
-          <%= f.select :priority, 
-              options_for_select(Schoolwork.priorities.keys.map { |k| [k.titleize, k] }, params[:priority]), 
-              { include_blank: "All Priorities" }, 
-              class: "select select-bordered select-sm flex-1" %>
-        </div>
-        <div class="flex gap-2">
-          <%= f.select :sort, 
-              options_for_select([["Recent", "recent"], ["Due Date", "due_date"], ["Priority", "priority"]], params[:sort]), 
-              { include_blank: "Sort By" }, 
-              class: "select select-bordered select-sm flex-1" %>
-          <%= f.submit "Filter", class: "btn btn-sm btn-accent" %>
-          <%= link_to "Clear", schoolworks_path, class: "btn btn-sm btn-ghost" %>
-        </div>
-      <% end %>
-    </div>
     <div class="divider mt-0 h-0"></div>
     <%# Schoolworks List Container %>
     <div id="schoolworks_list_container" class="flex flex-1 overflow-y-auto">
@@ -78,6 +45,7 @@
   </div>
   <%# Schoolwork Display %>
   <div class="basis-[70%] flex flex-col gap-2">
+    <%= render "toolbar" %>
     <%# Details Card %>
     <%= turbo_frame_tag "schoolwork_details" do %>
       <%= render "details_placeholder" %>

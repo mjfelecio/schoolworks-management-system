@@ -1,0 +1,88 @@
+<div class="section-card">
+  <div class="flex flex-col lg:flex-row gap-2 w-full">
+    <!-- SEARCH BAR SECTION -->
+    <div class="w-full lg:w-80 shrink-0">
+      <label class="input input-bordered flex items-center gap-2">
+        <!-- Search Icon -->
+        <svg class="w-4 h-4 opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.3-4.3"></path>
+          </g>
+        </svg>
+        <!-- Search Input -->
+        <input 
+          type="search" 
+          class="grow text-sm" 
+          placeholder="Search for schoolworks..." 
+          name="query"
+        />
+      </label>
+    </div>
+    <div class="divider lg:divider-horizontal m-0 p-0"></div>
+    <!-- FILTERS SECTION -->
+    <div class="flex-1">
+      <%= form_with url: schoolworks_path, method: :get do |f| %>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <!-- Subject Filter -->
+          <div class="form-control">
+            <label class="label py-1">
+              <span class="label-text text-xs font-medium">Subject</span>
+            </label>
+            <%= f.select :subject_id, 
+              options_from_collection_for_select(Subject.alphabetical, :id, :name, params[:subject_id]), 
+              { include_blank: "All Subjects" }, 
+              class: "select select-bordered select-sm w-full" %>
+          </div>
+          <!-- Type Filter -->
+          <div class="form-control">
+            <label class="label py-1">
+              <span class="label-text text-xs font-medium">Type</span>
+            </label>
+            <%= f.select :schoolwork_type, 
+              options_for_select(Schoolwork.schoolwork_types.keys.map { |k| [k.titleize, k] }, params[:schoolwork_type]), 
+              { include_blank: "All Types" }, 
+              class: "select select-bordered select-sm w-full" %>
+          </div>
+          <!-- Status Filter -->
+          <div class="form-control">
+            <label class="label py-1">
+              <span class="label-text text-xs font-medium">Status</span>
+            </label>
+            <%= f.select :status, 
+              options_for_select(Schoolwork.statuses.keys.map { |k| [k.titleize, k] }, params[:status]), 
+              { include_blank: "All Statuses" }, 
+              class: "select select-bordered select-sm w-full" %>
+          </div>
+          <!-- Priority Filter -->
+          <div class="form-control">
+            <label class="label py-1">
+              <span class="label-text text-xs font-medium">Priority</span>
+            </label>
+            <%= f.select :priority, 
+              options_for_select(Schoolwork.priorities.keys.map { |k| [k.titleize, k] }, params[:priority]), 
+              { include_blank: "All Priorities" }, 
+              class: "select select-bordered select-sm w-full" %>
+          </div>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-3 items-start sm:items-end">
+          <!-- Sort By Filter -->
+          <div class="form-control w-full sm:flex-1">
+            <label class="label py-1">
+              <span class="label-text text-xs font-medium">Sort by</span>
+            </label>
+            <%= f.select :sort, 
+              options_for_select([["Recent", "recent"], ["Due Date", "due_date"], ["Priority", "priority"]], params[:sort]), 
+              { include_blank: "Default Order" },
+              class: "select select-bordered select-sm w-full" %>
+          </div>
+          <!-- Action Buttons -->
+          <div class="flex gap-2 w-full sm:w-auto">
+            <%= f.submit "Apply Filters", class: "btn btn-sm btn-primary flex-1 sm:flex-none" %>
+            <%= link_to "Clear All", schoolworks_path, class: "btn btn-sm btn-ghost flex-1 sm:flex-none" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
