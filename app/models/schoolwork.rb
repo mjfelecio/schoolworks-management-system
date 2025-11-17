@@ -5,26 +5,11 @@ class Schoolwork < ApplicationRecord
   has_many_attached :files
 
   # Enums
-  enum schoolwork_type: {
-    assignment: 0,
-    exam: 1,
-    quiz: 2,
-    project: 3,
-    report: 4
-  }
+  enum :schoolwork_type, [ :assignment, :exam, :quiz, :project, :report ]
 
-  enum status: {
-    not_started: 0,
-    in_progress: 1,
-    completed: 2,
-    submitted: 3
-  }
+  enum :status, [ :not_started, :in_progress, :completed, :submitted ]
 
-  enum priority: {
-    low: 0,
-    medium: 1,
-    high: 2
-  }
+  enum :priority, [ :low, :medium, :high ]
 
   # Validations
   validates :title, presence: true
