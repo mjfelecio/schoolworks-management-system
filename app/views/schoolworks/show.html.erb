@@ -169,7 +169,7 @@
             <path d="M13 20l7 -7" />
             <path d="M13 20v-6a1 1 0 0 1 1 -1h6v-7a2 2 0 0 0 -2 -2h-12a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7" />
           </svg>
-          Notes (<%= @notes.count %>)
+          Notes (<%= @schoolwork.notes.count %>)
         </h3>
         <%# Add Note Form %>
         <%= form_with model: [@schoolwork, @note], class: "mb-4" do |f| %>
@@ -179,9 +179,9 @@
           </div>
         <% end %>
         <%# Notes List %>
-        <% if @notes.any? %>
+        <% if @schoolwork.notes.any? %>
           <div class="space-y-2">
-            <% @notes.each do |note| %>
+            <% @schoolwork.notes.each do |note| %>
               <div class="bg-base-200 p-3 rounded-box">
                 <div class="flex items-start justify-between gap-2">
                   <p class="text-base-content flex-1 whitespace-pre-wrap"><%= note.content %></p>

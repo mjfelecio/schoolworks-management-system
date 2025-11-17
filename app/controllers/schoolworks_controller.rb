@@ -7,7 +7,6 @@ class SchoolworksController < ApplicationController
   end
 
   def show
-    @notes = @schoolwork.notes
     @note = Note.new
   end
 
@@ -39,5 +38,16 @@ class SchoolworksController < ApplicationController
 
   def set_subjects
     @subjects = Subject.all
+  end
+
+  def schoolwork_params
+    params.expect(schoolwork: [
+      :files,
+      :schoolwork_type,
+      :title,
+      :description
+
+
+    ])
   end
 end
