@@ -19,8 +19,10 @@
   </head>
   <body class="flex flex-1">
     <%= render "layouts/navbar" do %>
-      <main class="flex w-full h-full bg-base-200">
-        <%= yield %>
+      <main class="flex flex-1 justify-center bg-base-200">
+        <div class="flex w-full max-w-[1500px] h-full bg-base-200">
+          <%= yield %>
+        </div>
       </main>
     <% end %>
     <%= turbo_frame_tag "modal_container" do %>
