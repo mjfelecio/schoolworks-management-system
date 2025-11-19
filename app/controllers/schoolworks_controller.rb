@@ -1,6 +1,6 @@
 class SchoolworksController < ApplicationController
   before_action :set_subjects, only: [ :edit, :new, :create, :show ]
-  before_action :set_schoolwork, only: [ :show, :edit, :update, :destroy ]
+  before_action :set_schoolwork, only: [ :show, :edit, :update, :destroy, :remove_file ]
 
   def index
       @schoolworks = Schoolwork.all
@@ -63,6 +63,22 @@ class SchoolworksController < ApplicationController
     end
   end
 
+  def remove_file
+    file = @schoolwork.files.find(params[:file_id])
+    file.purge
+
+    respond_to do |format|
+      format.html { redirect_to :schoolworks, notice: "File was successfully destroyed.", status: :ok }
+      format.json { status :ok }
+      format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace("attachments_list", partial: "schoolworks/attachments_list", locals: { schoolwork: @schoolwork }),
+            turbo_stream.update("notice", "File was successfully destroyed.")
+          ]
+        end
+    end
+  end
+
   private
 
     def set_schoolwork
@@ -85,6 +101,7 @@ class SchoolworksController < ApplicationController
         :grade,
         :submitted_at,
         :subject_id,
+        :file_id,
         files: []
       ])
     end
