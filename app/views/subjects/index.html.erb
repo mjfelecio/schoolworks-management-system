@@ -39,9 +39,7 @@
   <%# Subject Display %>
   <div class="basis-[70%] flex flex-col gap-2">
     <%# Overview Card %>
-    <%= turbo_frame_tag "subject_details" do %>
-      <%= render "details_placeholder" %>
-    <% end %>
+    <%= render "details_placeholder" %>
     <%# School Works List %>
     <%= render "school_works", subject: @subjects.first %>
   </div>
