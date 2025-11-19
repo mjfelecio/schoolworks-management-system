@@ -34,6 +34,7 @@ class SchoolworksController < ApplicationController
   def update
     respond_to do |format|
       if @schoolwork.update(schoolwork_params)
+        @schoolwork.files.attach(params[:files])
         format.html { redirect_to @schoolwork, notice: "Schoolwork was successfully updated.", status: :see_other }
         format.json { render :show, status: :ok, location: @schoolwork }
       else

@@ -155,6 +155,10 @@
         File Attachments
       </h2>
       <div class="form-control">
+        <%# Hidden field to tell rails to keep existing files instead of replacing them %>
+        <% schoolwork.files.each do |file| %>
+          <%= form.hidden_field :files, multiple: true, value: file.signed_id %>
+        <% end %>
         <%= form.label :files, class: "label" do %>
           <span class="label-text font-semibold">Upload Files</span>
         <% end %>
