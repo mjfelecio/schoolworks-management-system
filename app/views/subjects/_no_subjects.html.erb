@@ -1,4 +1,19 @@
-<div class="flex flex-1 flex-col items-center pt-32 text-gray-500">
-  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-notebook-off"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 4h9a2 2 0 0 1 2 2v9m-.179 3.828a2 2 0 0 1 -1.821 1.172h-11a1 1 0 0 1 -1 -1v-14m4 -1v1m0 4v13" /><path d="M13 8h2" /><path d="M3 3l18 18" /></svg>
-  No Subjects
+<div class="flex flex-col items-center justify-center h-full text-center p-8">
+  <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-base-content/60">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+    <path d="M19 4v16h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12z" />
+    <path d="M19 16h-12a2 2 0 0 0 -2 2" />
+    <path d="M9 8h6" />
+  </svg>
+  <h3 class="text-lg font-semibold text-base-content/60 mb-2">No subjects yet</h3>
+  <p class="text-sm text-base-content/50 mb-4">Create your first subject to get started</p>
+  <%= link_to new_schoolwork_path, data: { turbo_frame: "_top" }, class: "btn btn-primary btn-sm" do %>
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+      <path d="M9 12h6" />
+      <path d="M12 9v6" />
+    </svg>
+    Create Subject
+  <% end %>
 </div>
