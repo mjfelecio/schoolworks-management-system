@@ -16,7 +16,7 @@ class Schoolwork < ApplicationRecord
   validates :schoolwork_type, presence: true
   validates :status, presence: true
   validates :priority, presence: true
-  validates :due_date, presence: true, if: :requires_due_date?
+  validates :due_date, presence: { message: ->(object, data) { "is required for #{object.schoolwork_type} type" } }, if: :requires_due_date?
   validates :grade, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_nil: true }
 
   validate :acceptable_files
@@ -70,11 +70,11 @@ class Schoolwork < ApplicationRecord
     end
   end
 
-  private
-
   def requires_due_date?
     schoolwork_type.in?(%w[assignment exam quiz project])
   end
+
+  private
 
   def acceptable_files
     return unless files.attached?

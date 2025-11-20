@@ -94,7 +94,9 @@
         <%# Due Date %>
         <div class="form-control">
           <%= form.label :due_date, class: "label" do %>
-            <span class="label-text font-semibold">Due Date</span>
+            <span class="label-text font-semibold">Due Date <span class="text-error">*</span>
+              <span class="font-normal text-base-content/60">(required for certain schoolwork types)</span>
+            </span>
           <% end %>
           <%= form.datetime_local_field :due_date, 
               class: "input input-bordered w-full" %>
