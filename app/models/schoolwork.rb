@@ -31,6 +31,19 @@ class Schoolwork < ApplicationRecord
   # Callbacks
   before_save :set_submitted_at, if: :will_save_change_to_status?
 
+  # Ransack
+  def self.ransackable_attributes(auth_object = nil)
+    [ "created_at", "description", "due_date", "grade", "id", "priority", "schoolwork_type", "status", "subject_id", "submitted_at", "title", "updated_at" ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [ "files_attachments", "files_blobs", "notes", "subject" ]
+  end
+
+  ransacker :title_or_description do
+    Arel.sql("CONCAT(title, ' ', COALESCE(description, ''))")
+  end
+
   # Instance methods
   def overdue?
     due_date.present? && due_date < Time.current && !completed? && !submitted?

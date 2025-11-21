@@ -3,7 +3,9 @@ class SchoolworksController < ApplicationController
   before_action :set_schoolwork, only: [ :show, :edit, :update, :destroy, :remove_file ]
 
   def index
-      @schoolworks = Schoolwork.all
+      @q = Schoolwork.ransack(params[:q])
+      @q.sorts = "created_at desc" if @q.sorts.empty?
+      @schoolworks = @q.result(distinct: true)
   end
 
   def show

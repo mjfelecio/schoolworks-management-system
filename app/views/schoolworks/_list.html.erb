@@ -1,0 +1,12 @@
+<% if schoolworks.any? %>
+  <%# Schoolworks List %>
+  <%= turbo_frame_tag "schoolworks_list", class: "w-full divide-y self-start divide-base-300" do %>
+    <ul>
+      <% schoolworks.each do |schoolwork| %>
+        <%= render "schoolwork_item", schoolwork: schoolwork %>
+      <% end %>
+    </ul>
+  <% end %>
+<% else %>
+  <%= render "no_schoolworks" %>
+<% end %>
