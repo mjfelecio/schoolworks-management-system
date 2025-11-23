@@ -1,3 +1,13 @@
 <%= turbo_stream.remove "subject_modal" %>
-<%= turbo_stream.append "subjects_list", partial: "subjects/subject", collection: [@subject] %>
+<% if @was_empty %>
+  <%# First subject - replace empty state with new list %>
+  <%= turbo_stream.replace "subjects_list_empty" do %>
+    <ul id="subjects_list" class="self-start w-full divide-y divide-base-300">
+      <%= render partial: "subjects/subject", object: @subject %>
+    </ul>
+  <% end %>
+<% else %>
+  <%# Additional subjects - prepend to existing list %>
+  <%= turbo_stream.prepend "subjects_list", partial: "subjects/subject", object: @subject %>
+<% end %>
 <%= turbo_stream.update "notice", "Subject created!" %>

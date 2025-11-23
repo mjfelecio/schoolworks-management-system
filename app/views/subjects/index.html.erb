@@ -25,14 +25,13 @@
     <%# Subject List Container %>
     <div id="subjects_list_container" class="flex flex-1 items-center justify-center overflow-y-auto">
       <% if @subjects.any? %>
-        <%# Subject List %>
-        <ul id="subjects_list" class="self-start divide-y divide-base-300">
-          <% @subjects.each do |subject| %>
-            <%= render "subject", subject: subject %>
-          <% end %>
+        <ul id="subjects_list" class="self-start w-full divide-y divide-base-300">
+          <%= render @subjects %>
         </ul>
       <% else %>
-        <%= render "no_subjects" %>
+        <div id="subjects_list_empty">
+          <%= render "no_subjects" %>
+        </div>
       <% end %>
     </div>
   </div>

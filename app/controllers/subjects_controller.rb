@@ -44,6 +44,9 @@ class SubjectsController < ApplicationController
   def create
     @subject = Subject.new(subject_params)
 
+    # Check if list was empty BEFORE creating
+    @was_empty = Subject.count.zero?
+
     respond_to do |format|
       if @subject.save
         format.html { redirect_to :subjects, notice: "Subject was successfully created." }
@@ -87,7 +90,9 @@ class SubjectsController < ApplicationController
   # DELETE /subjects/1 or /subjects/1.json
   def destroy
     @subject.destroy!
-    @subject_count = Subject.count
+
+    # Check if list is empty AFTER deleting
+    @subjects_empty = Subject.count.zero?
 
     respond_to do |format|
       format.html { redirect_to subjects_path, notice: "Subject was successfully destroyed.", status: :see_other }
