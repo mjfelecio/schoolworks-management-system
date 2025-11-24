@@ -7,4 +7,5 @@
   <%# Additional notes - prepend to existing list %>
   <%= turbo_stream.prepend("notes_list", partial: "notes/note", locals: { note: @note }) %>
 <% end %>
+<%= turbo_stream.replace("notes_count", partial: "notes/notes_count", locals: { count: @schoolwork.notes.count }) %>
 <%= turbo_stream.replace("notes_form", partial: "notes/form", locals: { schoolwork: @schoolwork, note: Note.new }) %>

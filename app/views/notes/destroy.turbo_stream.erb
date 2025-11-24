@@ -5,3 +5,4 @@
     <p id="notes_list_empty" class="text-base-content/40 text-center py-4">No notes yet</p>
   <% end %>
 <% end %>
+<%= turbo_stream.replace("notes_count", partial: "notes/notes_count", locals: { count: @note.schoolwork.notes.count }) %>
