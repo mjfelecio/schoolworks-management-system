@@ -129,9 +129,7 @@
         <%= render partial: 'notes/form', locals: { schoolwork: @schoolwork, note: Note.new } %>
         <%# Notes List %>
         <% if @schoolwork.notes.any? %>
-          <div id="notes_list" class="space-y-2">
-            <%= render partial: "notes/note", collection: @schoolwork.notes %>
-          </div>
+          <%= render 'notes/list', notes: @schoolwork.notes %>
         <% else %>
           <p class="text-base-content/40 text-center py-4">No notes yet</p>
         <% end %>

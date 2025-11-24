@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   end
 
   resources :schoolworks do
-    resources :notes, only: [ :create, :destroy ]
+    resources :notes
     member do
       delete "remove_file/:file_id", to: "schoolworks#remove_file", as: "remove_file"
     end

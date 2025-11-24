@@ -1,6 +1,6 @@
 <%= form_with model: [schoolwork, note], id: "notes_form" ,class: "mb-4" do |f| %>
   <div class="flex gap-2">
-    <%= f.text_area :content, placeholder: "Add a note...", required: true, class: "field-sizing-content textarea textarea-bordered flex-1", rows: 2 %>
-    <%= f.submit "Add Note", class: "btn btn-primary" %>
+    <%= f.text_area :content, placeholder: "#{note.persisted? ? "Edit this" : "Add a"} note...", required: true, class: "field-sizing-content textarea textarea-bordered flex-1", rows: 2 %>
+    <%= f.submit "#{note.persisted? ? "Edit" : "Add"} Note", class: "btn btn-primary" %>
   </div>
 <% end %>

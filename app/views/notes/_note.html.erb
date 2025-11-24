@@ -1,16 +1,26 @@
-<div id=" <%= dom_id(note) %> " class="bg-base-200 p-3 rounded-box">
+<div id="<%= dom_id(note) %>" class="bg-base-200 p-3 rounded-box">
   <div class="flex items-start justify-between gap-2">
     <p class="text-base-content flex-1 whitespace-pre-wrap"><%= note.content %></p>
-    <%= button_to schoolwork_note_path(note.schoolwork, note), method: :delete, data: { turbo_confirm: "Delete this note?" }, class: "btn btn-sm btn-ghost text-error" do %>
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-        <path d="M4 7l16 0" />
-        <path d="M10 11l0 6" />
-        <path d="M14 11l0 6" />
-        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-      </svg>
-    <% end %>
+    <div class="flex items-center justify-between">
+      <%= link_to edit_schoolwork_note_path(note.schoolwork, note), data: { turbo_stream: true }, class: "text-success" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+          <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+          <path d="M16 5l3 3" />
+        </svg>
+      <% end %>
+      <%= button_to schoolwork_note_path(note.schoolwork, note), method: :delete, data: { turbo_confirm: "Delete this note?" }, class: "btn btn-sm btn-ghost text-error" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M4 7l16 0" />
+          <path d="M10 11l0 6" />
+          <path d="M14 11l0 6" />
+          <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+          <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+        </svg>
+      <% end %>
+    </div>
   </div>
   <p class="text-xs text-base-content/40 mt-2"><%= time_ago_in_words(note.created_at) %> ago</p>
 </div>
