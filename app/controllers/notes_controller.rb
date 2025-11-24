@@ -85,6 +85,15 @@ class NotesController < ApplicationController
   end
 
   def destroy
+    @note.destroy
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: [
+          turbo_stream.remove("note_#{@note.id}")
+        ]
+      end
+    end
   end
 
   private
