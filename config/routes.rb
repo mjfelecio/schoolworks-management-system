@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
-  root "home#index"
-  get "home/showcase", to: "home#showcase"
-  get "dashboard", to: "home#index"
+  root "dashboard#index"
+  get "dashboard", to: "dashboard#index"
 
   resources :subjects do
     resources :schoolworks, only: [ :new, :create ]
