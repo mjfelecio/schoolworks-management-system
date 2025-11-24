@@ -1,5 +1,5 @@
 <%= turbo_stream.remove(dom_id(@schoolwork)) %>
-<%= turbo_stream.replace("schoolwork_details", partial: "subjects/details_placeholder") %>
+<%= turbo_stream.replace("schoolwork_details", partial: "schoolworks/details_placeholder") %>
 <% if @schoolworks_empty %>
   <%# Last schoolwork deleted - replace list with empty state %>
   <%= turbo_stream.replace "schoolworks_list" do %>
