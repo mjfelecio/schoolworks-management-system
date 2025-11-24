@@ -1,0 +1,20 @@
+<%= turbo_stream.append "flash-messages" do %>
+  <div data-controller="alert" 
+       data-alert-type-value="<%= type %>"
+       class="alert <%= alert_class(type) %> shadow-lg transform transition-all duration-300 ease-in-out opacity-0 translate-x-full"
+       data-alert-target="container"
+       role="alert">
+    <svg xmlns="http://www.w3.org/2000/svg" 
+         class="stroke-current shrink-0 h-6 w-6" 
+         fill="none" 
+         viewBox="0 0 24 24">
+      <%= alert_icon(type) %>
+    </svg>
+    <span><%= message %></span>
+    <button data-action="click->alert#close" class="btn btn-sm btn-ghost">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+<% end %>
