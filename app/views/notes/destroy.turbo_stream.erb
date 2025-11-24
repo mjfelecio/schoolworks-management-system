@@ -1,0 +1,7 @@
+<%= turbo_stream.remove(dom_id(@note)) %>
+<% if @notes_empty %>
+  <%# Last note deleted - replace list with empty state %>
+  <%= turbo_stream.replace "notes_list" do %>
+    <p id="notes_list_empty" class="text-base-content/40 text-center py-4">No notes yet</p>
+  <% end %>
+<% end %>

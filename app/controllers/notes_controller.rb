@@ -6,7 +6,7 @@ class NotesController < ApplicationController
     @schoolwork = Schoolwork.find(note_params[:schoolwork_id])
 
     # Check if list was empty BEFORE creating
-    @was_empty = Note.count.zero?
+    @was_empty = @schoolwork.notes.count.zero?
 
     respond_to do |format|
       if @note.save
@@ -88,13 +88,10 @@ class NotesController < ApplicationController
 
   def destroy
     @note.destroy
+    @notes_empty = @note.schoolwork.notes.count.zero?
 
     respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: [
-          turbo_stream.remove("note_#{@note.id}")
-        ]
-      end
+      format.turbo_stream
     end
   end
 
