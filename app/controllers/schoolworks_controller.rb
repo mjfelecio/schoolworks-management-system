@@ -19,15 +19,20 @@ class SchoolworksController < ApplicationController
   def create
     @schoolwork = Schoolwork.new(schoolwork_params)
 
-    respond_to do |format|
-      if @schoolwork.save
-        format.html { redirect_to :schoolworks, notice: "Schoolwork was successfully created." }
-        format.json { render :index, status: :created, location: @schoolwork }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @schoolwork.errors, status: :unprocessable_entity }
-      end
+    if @schoolwork.save
+      redirect_to :schoolworks, notice: "Schoolwork was successfully created."
+    else
+      render :new, status: :unprocessable_content
     end
+    # respond_to do |format|
+    #   if @schoolwork.save
+    #     format.html { redirect_to :schoolworks, notice: "Schoolwork was successfully created." }
+    #     format.json { render :index, status: :created, location: @schoolwork }
+    #   else
+    #     format.html { render :new, status: :unprocessable_content }
+    #     format.json { render json: @schoolwork.errors, status: :unprocessable_content }
+    #   end
+    # end
   end
 
   def edit
@@ -40,8 +45,8 @@ class SchoolworksController < ApplicationController
         format.html { redirect_to :schoolworks, notice: "Schoolwork was successfully updated.", status: :see_other }
         format.json { render :show, status: :ok, location: @schoolwork }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @schoolwork.errors, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_content }
+        format.json { render json: @schoolwork.errors, status: :unprocessable_content }
       end
     end
   end
