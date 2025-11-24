@@ -58,8 +58,9 @@ class NotesController < ApplicationController
         format.html { redirect_to @note }
         format.turbo_stream do
           render turbo_stream: [
-            turbo_stream.replace(
-              "note_#{@note.id}",
+            turbo_stream.remove("note_#{@note.id}"),
+            turbo_stream.prepend(
+              "notes_list",
               partial: "notes/note",
               locals: { note: @note }
             ),
@@ -74,6 +75,11 @@ class NotesController < ApplicationController
         format.html { render :edit, status: :unprocessable_entity }
         format.turbo_stream do
           render turbo_stream: [
+            turbo_stream.prepend(
+              "note_#{@note.id}",
+              partial: "notes/note",
+              locals: { note: @note }
+            ),
             turbo_stream.replace(
               "notes_form",
               partial: "notes/form",
