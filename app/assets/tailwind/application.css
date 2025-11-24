@@ -7,7 +7,7 @@
 }
 
 /* Optional for custom themes – Docs: https://daisyui.com/docs/themes/#how-to-add-a-new-custom-theme */
-@plugin "./daisyui-theme.mjs" {
+/* @plugin "./daisyui-theme.mjs" {
   name: "light";
   default: true;
   prefersdark: false;
@@ -40,6 +40,62 @@
   --border: 1.5px;
   --depth: 1;
   --noise: 0;
+} */
+
+ @plugin "./daisyui-theme.mjs" {
+  name: "light";
+  default: true;
+  prefersdark: false;
+  color-scheme: "light";
+
+  /* BASE — softer, cleaner, more modern */
+  --color-base-100: oklch(98% 0.010 245);  /* paper white with slight cool tint */
+  --color-base-200: oklch(95% 0.020 250);
+  --color-base-300: oklch(90% 0.035 250);
+
+  /* TEXT — cooler, harmonious with base */
+  --color-base-content: oklch(32% 0.115 260); /* charcoal blue-grey */
+
+  /* PRIMARY — refined ocean blue, slightly more character */
+  --color-primary: oklch(78% 0.12 230);
+  --color-primary-content: oklch(28% 0.10 245);
+
+  /* SECONDARY — warm sand tone (balanced with primary’s coolness) */
+  --color-secondary: oklch(88% 0.09 85);
+  --color-secondary-content: oklch(30% 0.08 70);
+
+  /* ACCENT — soft neutral silver, premium feel */
+  --color-accent: oklch(92% 0.02 260);
+  --color-accent-content: oklch(30% 0.03 260);
+
+  /* NEUTRALS — slightly cool, balanced with content */
+  --color-neutral: oklch(35% 0.07 260);
+  --color-neutral-content: oklch(98% 0.010 245);
+
+  /* INFO — calmer cyan tuned to theme */
+  --color-info: oklch(70% 0.12 210);
+  --color-info-content: oklch(98% 0.015 220);
+
+  /* SUCCESS — fresh green, softer but confident */
+  --color-success: oklch(72% 0.14 150);
+  --color-success-content: oklch(98% 0.015 150);
+
+  /* WARNING — subtle amber/dijon */
+  --color-warning: oklch(80% 0.12 80);
+  --color-warning-content: oklch(20% 0.06 80);
+
+  /* ERROR — softer but still visible red */
+  --color-error: oklch(62% 0.20 30);
+  --color-error-content: oklch(98% 0.015 25);
+
+  --radius-selector: 1rem;
+  --radius-field: 1rem;
+  --radius-box: 1rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1.5px;
+  --depth: 1;
+  --noise: 0.01;
 }
 
 @plugin "./daisyui-theme.mjs" {
@@ -47,35 +103,53 @@
   default: false;
   prefersdark: true;
   color-scheme: "dark";
-  --color-base-100: oklch(28.822% 0.022 277.508);
-  --color-base-200: oklch(26.805% 0.02 277.508);
-  --color-base-300: oklch(24.787% 0.019 277.508);
-  --color-base-content: oklch(97.747% 0.007 106.545);
-  --color-primary: oklch(86% 0.127 207.078);
-  --color-primary-content: oklch(15.092% 0.036 346.812);
-  --color-secondary: oklch(74.202% 0.148 301.883);
-  --color-secondary-content: oklch(14.84% 0.029 301.883);
-  --color-accent: oklch(76% 0.188 70.08);
-  --color-accent-content: oklch(16.678% 0.024 66.558);
-  --color-neutral: oklch(39.445% 0.032 275.524);
-  --color-neutral-content: oklch(87.889% 0.006 275.524);
-  --color-info: oklch(88.263% 0.093 212.846);
-  --color-info-content: oklch(17.652% 0.018 212.846);
-  --color-success: oklch(87.099% 0.219 148.024);
-  --color-success-content: oklch(17.419% 0.043 148.024);
-  --color-warning: oklch(95.533% 0.134 112.757);
-  --color-warning-content: oklch(19.106% 0.026 112.757);
-  --color-error: oklch(68.22% 0.206 24.43);
-  --color-error-content: oklch(13.644% 0.041 24.43);
+
+  --color-base-100: oklch(18% 0.03 255);     /* deep blue-gray */
+  --color-base-200: oklch(22% 0.04 255);
+  --color-base-300: oklch(28% 0.05 254);
+
+  --color-base-content: oklch(92% 0.015 255); /* soft blue-tinted white */
+
+  /* PRIMARY — inverted from your light primary */
+  --color-primary: oklch(63% 0.12 252);
+  --color-primary-content: oklch(95% 0.018 255);
+
+  /* SECONDARY — warm, complementary to cyan tones */
+  --color-secondary: oklch(68% 0.14 66);
+  --color-secondary-content: oklch(96% 0.02 60);
+
+  /* ACCENT — almost-neutral accent, same style */
+  --color-accent: oklch(70% 0.01 56);
+  --color-accent-content: oklch(95% 0.005 56);
+
+  /* NEUTRAL — matches your light theme content color logic */
+  --color-neutral: oklch(25% 0.07 265);
+  --color-neutral-content: oklch(94% 0.02 255);
+
+  /* STATUS COLORS (mirrored lightness from your light theme) */
+  --color-info: oklch(55% 0.14 222);
+  --color-info-content: oklch(94% 0.02 220);
+
+  --color-success: oklch(52% 0.15 163);
+  --color-success-content: oklch(94% 0.02 165);
+
+  --color-warning: oklch(60% 0.17 75);
+  --color-warning-content: oklch(96% 0.025 102);
+
+  --color-error: oklch(55% 0.24 27);
+  --color-error-content: oklch(94% 0.02 20);
+
   --radius-selector: 1rem;
-  --radius-field: 0.5rem;
+  --radius-field: 1rem;
   --radius-box: 1rem;
   --size-selector: 0.25rem;
   --size-field: 0.25rem;
-  --border: 1px;
-  --depth: 0;
+  --border: 1.5px;
+  --depth: 1;
   --noise: 0;
 }
+
+
 
 body {
   font-family: "Poppins";
