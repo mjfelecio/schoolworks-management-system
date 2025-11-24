@@ -1,9 +1,6 @@
 <%# app/views/schoolworks/index.html.erb %>
 <% content_for :title, "Schoolworks" %>
 <div class="bg-base-200 flex flex-1 p-4 gap-2">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
-  <% end %>
   <%# Schoolworks List Section %>
   <div class="section-card basis-[30%] max-h-[600px] flex flex-col">
     <%# List Header %>
@@ -31,7 +28,15 @@
     <div class="divider mt-0 h-0"></div>
     <%# Schoolworks List Container %>
     <div id="schoolworks_list_container" class="flex flex-1 items-center justify-center overflow-y-auto">
-      <%= render 'list', schoolworks: @schoolworks %>
+      <% if @schoolworks.any? %>
+        <ul id="schoolworks_list" class="self-start w-full divide-y divide-base-300">
+          <%= render partial: "schoolwork_item", collection: @schoolworks, as: :schoolwork%>
+        </ul>
+      <% else %>
+        <div id="schoolworks_list_empty">
+          <%= render "no_schoolworks" %>
+        </div>
+      <% end %>
     </div>
   </div>
   <%# Schoolwork Display %>

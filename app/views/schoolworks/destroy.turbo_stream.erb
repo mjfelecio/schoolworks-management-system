@@ -1,0 +1,11 @@
+<%= turbo_stream.remove(dom_id(@schoolwork)) %>
+<%= turbo_stream.replace("schoolwork_details", partial: "subjects/details_placeholder") %>
+<% if @schoolworks_empty %>
+  <%# Last schoolwork deleted - replace list with empty state %>
+  <%= turbo_stream.replace "schoolworks_list" do %>
+    <div id="schoolworks_list_empty">
+      <%= render "subjects/no_schoolworks" %>
+    </div>
+  <% end %>
+<% end %>
+<%= render_turbo_flash(:success, "Schoolwork #{@schoolwork.title} deleted successfully.") %>

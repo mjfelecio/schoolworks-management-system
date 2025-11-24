@@ -37,7 +37,7 @@ class SchoolworksController < ApplicationController
     respond_to do |format|
       if @schoolwork.update(schoolwork_params)
         @schoolwork.files.attach(params[:files])
-        format.html { redirect_to @schoolwork, notice: "Schoolwork was successfully updated.", status: :see_other }
+        format.html { redirect_to :schoolworks, notice: "Schoolwork was successfully updated.", status: :see_other }
         format.json { render :show, status: :ok, location: @schoolwork }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -48,20 +48,12 @@ class SchoolworksController < ApplicationController
 
   def destroy
     @schoolwork.destroy!
-    @schoolwork_count = Schoolwork.count
+    @schoolworks_empty = Schoolwork.count.zero?
 
     respond_to do |format|
       format.html { redirect_to :schoolworks, notice: "Schoolwork was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
-      format.turbo_stream do
-          render turbo_stream: [
-            turbo_stream.remove("schoolwork_#{@schoolwork.id}"),
-            turbo_stream.replace("schoolwork_details", partial: "schoolworks/details_placeholder"),
-            # TODO: Only replace with the no_schoolworks when count is zero after deletion
-            # turbo_stream.replace("schoolworks_list_container", partial: "schoolworks/no_schoolworks"),
-            turbo_stream.update("notice", "Schoolwork was successfully destroyed.")
-          ]
-        end
+      format.turbo_stream
     end
   end
 
