@@ -1,10 +1,25 @@
 class NotesController < ApplicationController
   def create
     @note = Note.new(notes_params)
-    if @note.save
-      redirect_to :schoolworks, notice: "Note was successfully created."
-    else
-      redirect_to :schoolworks, alert: @note.errors.full_messages
+
+    # Check if list was empty BEFORE creating
+    @was_empty = Note.count.zero?
+
+    respond_to do |format|
+      if @note.save
+        format.html { redirect_to :subjects }
+        format.json { render :index, status: :created, location: @note }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.prepend(
+            "notes_list",
+            partial: "notes/note",
+            locals: { note: @note }
+          )
+        end
+      else
+        format.html { redirect_to :schoolworks, alert: @note.errors.full_messages, status: :unprocessable_entity }
+        format.json { render json: @note.errors.full_messages, status: :unprocessable_entity }
+      end
     end
   end
 
