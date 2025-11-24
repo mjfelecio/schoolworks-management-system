@@ -8,4 +8,4 @@
     </div>
   <% end %>
 <% end %>
-<%= turbo_stream.update("notice", "Subject was successfully destroyed.") %>
+<%= render_turbo_flash(:success, "Subject #{@subject.name} deleted successfully.") %>

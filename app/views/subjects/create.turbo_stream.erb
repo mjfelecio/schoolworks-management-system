@@ -10,4 +10,4 @@
   <%# Additional subjects - prepend to existing list %>
   <%= turbo_stream.prepend "subjects_list", partial: "subjects/subject", object: @subject %>
 <% end %>
-<%= turbo_stream.update "notice", "Subject created!" %>
+<%= render_turbo_flash(:success, "New subject named #{@subject.name.titleize} created.") %>

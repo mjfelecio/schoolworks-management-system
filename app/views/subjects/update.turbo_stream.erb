@@ -1,4 +1,4 @@
 <%= turbo_stream.remove "subject_modal" %>
 <%= turbo_stream.replace dom_id(@subject), partial: "subjects/subject", locals: { subject: @subject } %>
 <%= turbo_stream.replace "subject_details", partial: "subjects/details", locals: { subject: @subject } %>
-<%= turbo_stream.update "notice", "Subject edited!" %>
+<%= render_turbo_flash(:success, "#{@subject.name} was successfully edited.") %>
