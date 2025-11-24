@@ -126,12 +126,7 @@
           Notes (<%= @schoolwork.notes.count %>)
         </h3>
         <%# Add Note Form %>
-        <%= form_with model: [@schoolwork, @note], class: "mb-4" do |f| %>
-          <div class="flex gap-2">
-            <%= f.text_area :content, placeholder: "Add a note...", required: true, class: "field-sizing-content textarea textarea-bordered flex-1", rows: 2 %>
-            <%= f.submit "Add Note", class: "btn btn-primary" %>
-          </div>
-        <% end %>
+        <%= render partial: 'notes/form', locals: { schoolwork: @schoolwork, note: Note.new } %>
         <%# Notes List %>
         <% if @schoolwork.notes.any? %>
           <div id="notes_list" class="space-y-2">

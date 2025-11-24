@@ -9,7 +9,6 @@ class SchoolworksController < ApplicationController
   end
 
   def show
-    @note = Note.new
   end
 
   def new
@@ -19,20 +18,15 @@ class SchoolworksController < ApplicationController
   def create
     @schoolwork = Schoolwork.new(schoolwork_params)
 
-    if @schoolwork.save
-      redirect_to :schoolworks, notice: "Schoolwork was successfully created."
-    else
-      render :new, status: :unprocessable_content
+    respond_to do |format|
+      if @schoolwork.save
+        format.html { redirect_to :schoolworks, notice: "Schoolwork was successfully created." }
+        format.json { render :index, status: :created, location: @schoolwork }
+      else
+        format.html { render :new, status: :unprocessable_content }
+        format.json { render json: @schoolwork.errors, status: :unprocessable_content }
+      end
     end
-    # respond_to do |format|
-    #   if @schoolwork.save
-    #     format.html { redirect_to :schoolworks, notice: "Schoolwork was successfully created." }
-    #     format.json { render :index, status: :created, location: @schoolwork }
-    #   else
-    #     format.html { render :new, status: :unprocessable_content }
-    #     format.json { render json: @schoolwork.errors, status: :unprocessable_content }
-    #   end
-    # end
   end
 
   def edit
