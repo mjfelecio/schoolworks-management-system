@@ -26,6 +26,7 @@ class NotesController < ApplicationController
   end
 
   def edit
+    notes = @note.schoolwork.notes.order(updated_at: :desc)
     respond_to do |format|
       format.html
       format.turbo_stream do
@@ -33,7 +34,7 @@ class NotesController < ApplicationController
           turbo_stream.replace(
             "notes_list",
             partial: "notes/list",
-            locals: { notes: @note.schoolwork.notes }
+            locals: { notes: notes }
           ),
           # Replace the note with editing variant
           turbo_stream.replace(

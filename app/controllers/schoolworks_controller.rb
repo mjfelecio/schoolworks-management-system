@@ -9,6 +9,7 @@ class SchoolworksController < ApplicationController
   end
 
   def show
+    @notes = @schoolwork.notes.order(updated_at: :desc)
   end
 
   def new
