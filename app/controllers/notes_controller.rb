@@ -3,7 +3,7 @@ class NotesController < ApplicationController
 
   def create
     @note = Note.new(note_params)
-    schoolwork = Schoolwork.find(note_params[:schoolwork_id])
+    @schoolwork = Schoolwork.find(note_params[:schoolwork_id])
 
     # Check if list was empty BEFORE creating
     @was_empty = Note.count.zero?
@@ -12,12 +12,7 @@ class NotesController < ApplicationController
       if @note.save
         format.html { redirect_to :schoolworks }
         format.json { render :index, status: :created, location: @note }
-        format.turbo_stream do
-          render turbo_stream: [
-            turbo_stream.prepend("notes_list", partial: "notes/note", locals: { note: @note }),
-            turbo_stream.replace("notes_form", partial: "notes/form", locals: { schoolwork: schoolwork, note: Note.new })
-          ]
-        end
+        format.turbo_stream
       else
         format.html { redirect_to :schoolworks, alert: @note.errors.full_messages, status: :unprocessable_entity }
         format.json { render json: @note.errors.full_messages, status: :unprocessable_entity }

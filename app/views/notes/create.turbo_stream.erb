@@ -1,0 +1,10 @@
+<% if @was_empty %>
+  <%# First note - replace empty state with new list %>
+  <%= turbo_stream.replace "subject_list_empty" do %>
+    <%= render partial: 'notes/list', locals: { notes: [@note] } %>
+  <% end %>
+<% else %>
+  <%# Additional notes - prepend to existing list %>
+  <%= turbo_stream.prepend("notes_list", partial: "notes/note", locals: { note: @note }) %>
+<% end %>
+<%= turbo_stream.replace("notes_form", partial: "notes/form", locals: { schoolwork: @schoolwork, note: Note.new }) %>
