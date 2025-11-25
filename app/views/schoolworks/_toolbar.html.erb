@@ -49,49 +49,51 @@
               <span class="label-text text-xs font-medium">Subject</span>
             </label>
             <%= f.select :subject_id_eq,
-                options_from_collection_for_select(Subject.alphabetical, :id, :name, params.dig(:q, :subject_id_eq)),
-                { include_blank: "All Subjects" },
-                class: "select select-bordered select-sm w-full",
-                data: { action: "change->search-form#submit" } %>
+              options_from_collection_for_select(
+                Subject.alphabetical, :id, :name, @q.subject_id_eq
+              ),
+              { include_blank: "All Subjects" },
+              class: "select select-bordered select-sm w-full",
+              data: { action: "change->search-form#submit" } %>
           </div>
           <div class="form-control">
             <label class="label py-1">
               <span class="label-text text-xs font-medium">Type</span>
             </label>
             <%= f.select :schoolwork_type_eq,
-                options_for_select(
-                  Schoolwork.schoolwork_types.keys.map { |k| [k.titleize, k] },
-                  params.dig(:q, :schoolwork_type_eq)
-                ),
-                { include_blank: "All Types" },
-                class: "select select-bordered select-sm w-full",
-                data: { action: "change->search-form#submit" } %>
+              options_for_select(
+                Schoolwork.schoolwork_types.map { |k, v| [k.titleize, v] },
+                @q.schoolwork_type_eq
+              ),
+              { include_blank: "All Types" },
+              class: "select select-bordered select-sm w-full",
+              data: { action: "change->search-form#submit" } %>
           </div>
           <div class="form-control">
             <label class="label py-1">
               <span class="label-text text-xs font-medium">Status</span>
             </label>
             <%= f.select :status_eq,
-                options_for_select(
-                  Schoolwork.statuses.keys.map { |k| [k.titleize, k] },
-                  params.dig(:q, :status_eq)
-                ),
-                { include_blank: "All Statuses" },
-                class: "select select-bordered select-sm w-full",
-                data: { action: "change->search-form#submit" } %>
+              options_for_select(
+                Schoolwork.statuses.map { |k, v| [k.titleize, v] },
+                @q.status_eq
+              ),
+              { include_blank: "All Statuses" },
+              class: "select select-bordered select-sm w-full",
+              data: { action: "change->search-form#submit" } %>
           </div>
           <div class="form-control">
             <label class="label py-1">
               <span class="label-text text-xs font-medium">Priority</span>
             </label>
             <%= f.select :priority_eq,
-                options_for_select(
-                  Schoolwork.priorities.keys.map { |k| [k.titleize, k] },
-                  params.dig(:q, :priority_eq)
-                ),
-                { include_blank: "All Priorities" },
-                class: "select select-bordered select-sm w-full",
-                data: { action: "change->search-form#submit" } %>
+              options_for_select(
+                Schoolwork.priorities.map { |name, value| [name.titleize, value] },
+                @q.priority_eq
+              ),
+              { include_blank: "All Priorities" },
+              class: "select select-bordered select-sm w-full",
+              data: { action: "change->search-form#submit" } %>
           </div>
         </div>
         <!-- ========================================= -->
