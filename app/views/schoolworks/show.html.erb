@@ -1,131 +1,133 @@
-<%= turbo_frame_tag "schoolwork_details" do %>
-  <div class="section-card flex flex-col h-full">
-    <%# Header %>
-    <div class="flex items-start justify-between gap-4 mb-4">
-      <div class="flex-1 min-w-0">
-        <div class="flex items-center gap-2 mb-2">
-          <span class="badge <%= @schoolwork.status_badge_class %>">
-            <%= @schoolwork.status.titleize %>
-          </span>
-          <span class="badge <%= @schoolwork.priority_badge_class %>">
-            <%= @schoolwork.priority.titleize %>
-          </span>
-          <span class="badge badge-outline">
-            <%= @schoolwork.schoolwork_type.titleize %>
-          </span>
-        </div>
-        <h1 class="text-3xl font-bold text-base-content wrap-break-words"><%= @schoolwork.title %></h1>
-        <div class="flex items-center gap-2 mt-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-base-content/60">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-            <path d="M19 4v16h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12z" />
-            <path d="M19 16h-12a2 2 0 0 0 -2 2" />
-          </svg>
-          <span class="text-lg text-base-content/80"><%= @schoolwork.subject.name %></span>
-        </div>
-      </div>
-      <div class="flex gap-2">
-        <%= link_to edit_schoolwork_path(@schoolwork), data: { turbo_frame: "_top" }, class: "btn btn-sm btn-accent" do %>
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-            <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
-            <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
-            <path d="M16 5l3 3" />
-          </svg>
-          Edit
-        <% end %>
-        <%= button_to schoolwork_path(@schoolwork), method: :delete, data: { turbo_confirm: "Are you sure you want to delete this schoolwork?" }, class: "btn btn-sm btn-error" do %>
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-            <path d="M4 7l16 0" />
-            <path d="M10 11l0 6" />
-            <path d="M14 11l0 6" />
-            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-          </svg>
-          Delete
-        <% end %>
-      </div>
-    </div>
-    <div class="divider my-2"></div>
-    <%# Content - Scrollable %>
-    <div class="flex-1 overflow-y-auto space-y-6">
-      <%# Due Date & Grade Info %>
-      <div class="grid grid-cols-2 gap-4">
-        <div class="bg-base-200 p-4 rounded-box">
+<%= turbo_frame_tag "schoolwork_details", class: "bg-base-200 flex flex-1 p-4" do %>
+  <div class="container mx-auto max-w-5xl">
+    <div class="section-card flex flex-col h-full">
+      <%# Header %>
+      <div class="flex items-start justify-between gap-4 mb-4">
+        <div class="flex-1 min-w-0">
           <div class="flex items-center gap-2 mb-2">
+            <span class="badge <%= @schoolwork.status_badge_class %>">
+              <%= @schoolwork.status.titleize %>
+            </span>
+            <span class="badge <%= @schoolwork.priority_badge_class %>">
+              <%= @schoolwork.priority.titleize %>
+            </span>
+            <span class="badge badge-outline">
+              <%= @schoolwork.schoolwork_type.titleize %>
+            </span>
+          </div>
+          <h1 class="text-3xl font-bold text-base-content wrap-break-words"><%= @schoolwork.title %></h1>
+          <div class="flex items-center gap-2 mt-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-base-content/60">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-              <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" />
-              <path d="M16 3v4" />
-              <path d="M8 3v4" />
-              <path d="M4 11h16" />
+              <path d="M19 4v16h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12z" />
+              <path d="M19 16h-12a2 2 0 0 0 -2 2" />
             </svg>
-            <span class="text-sm font-semibold text-base-content/60">Due Date</span>
+            <span class="text-lg text-base-content/80"><%= @schoolwork.subject.name %></span>
           </div>
-          <% if @schoolwork.due_date.present? %>
-            <p class="text-lg font-semibold <%= @schoolwork.overdue? ? 'text-error' : @schoolwork.due_soon? ? 'text-warning' : 'text-base-content' %>">
-              <%= @schoolwork.due_date.strftime("%B %d, %Y at %I:%M %p") %>
-            </p>
-            <% if @schoolwork.overdue? %>
-              <span class="badge badge-error badge-sm mt-1">Overdue</span>
-            <% elsif @schoolwork.due_soon? %>
-              <span class="badge badge-warning badge-sm mt-1">Due Soon</span>
-            <% end %>
-          <% else %>
-            <p class="text-base-content/40">No due date set</p>
-          <% end %>
         </div>
-        <div class="bg-base-200 p-4 rounded-box">
-          <div class="flex items-center gap-2 mb-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-base-content/60">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-              <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
-              <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
-              <path d="M9 14l2 2l4 -4" />
-            </svg>
-            <span class="text-sm font-semibold text-base-content/60">Grade</span>
-          </div>
-          <% if @schoolwork.grade.present? %>
-            <p class="text-lg font-semibold text-base-content"><%= @schoolwork.grade %>%</p>
-          <% else %>
-            <p class="text-base-content/40">Not graded yet</p>
-          <% end %>
-        </div>
-      </div>
-      <%# Description %>
-      <% if @schoolwork.description.present? %>
-        <div>
-          <h3 class="text-lg font-semibold mb-2 flex items-center gap-2">
+        <div class="flex gap-2">
+          <%= link_to edit_schoolwork_path(@schoolwork), data: { turbo_frame: "_top" }, class: "btn btn-sm btn-accent" do %>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-              <path d="M8 6h10" />
-              <path d="M8 12h10" />
-              <path d="M8 18h10" />
-              <path d="M3 6l0 .01" />
-              <path d="M3 12l0 .01" />
-              <path d="M3 18l0 .01" />
+              <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+              <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+              <path d="M16 5l3 3" />
             </svg>
-            Description
-          </h3>
-          <div class="prose max-w-none">
-            <p class="text-base-content/80 whitespace-pre-wrap"><%= @schoolwork.description %></p>
+            Edit
+          <% end %>
+          <%= button_to schoolwork_path(@schoolwork), method: :delete, data: { turbo_confirm: "Are you sure you want to delete this schoolwork?" }, class: "btn btn-sm btn-error" do %>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M4 7l16 0" />
+              <path d="M10 11l0 6" />
+              <path d="M14 11l0 6" />
+              <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+              <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+            </svg>
+            Delete
+          <% end %>
+        </div>
+      </div>
+      <div class="divider my-2"></div>
+      <%# Content - Scrollable %>
+      <div class="flex-1 overflow-y-auto space-y-6">
+        <%# Due Date & Grade Info %>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-base-200 p-4 rounded-box">
+            <div class="flex items-center gap-2 mb-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-base-content/60">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" />
+                <path d="M16 3v4" />
+                <path d="M8 3v4" />
+                <path d="M4 11h16" />
+              </svg>
+              <span class="text-sm font-semibold text-base-content/60">Due Date</span>
+            </div>
+            <% if @schoolwork.due_date.present? %>
+              <p class="text-lg font-semibold <%= @schoolwork.overdue? ? 'text-error' : @schoolwork.due_soon? ? 'text-warning' : 'text-base-content' %>">
+                <%= @schoolwork.due_date.strftime("%B %d, %Y at %I:%M %p") %>
+              </p>
+              <% if @schoolwork.overdue? %>
+                <span class="badge badge-error badge-sm mt-1">Overdue</span>
+              <% elsif @schoolwork.due_soon? %>
+                <span class="badge badge-warning badge-sm mt-1">Due Soon</span>
+              <% end %>
+            <% else %>
+              <p class="text-base-content/40">No due date set</p>
+            <% end %>
+          </div>
+          <div class="bg-base-200 p-4 rounded-box">
+            <div class="flex items-center gap-2 mb-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-base-content/60">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
+                <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
+                <path d="M9 14l2 2l4 -4" />
+              </svg>
+              <span class="text-sm font-semibold text-base-content/60">Grade</span>
+            </div>
+            <% if @schoolwork.grade.present? %>
+              <p class="text-lg font-semibold text-base-content"><%= @schoolwork.grade %>%</p>
+            <% else %>
+              <p class="text-base-content/40">Not graded yet</p>
+            <% end %>
           </div>
         </div>
-      <% end %>
-      <%# Attachments %>
-      <%= render 'attachments_list', schoolwork: @schoolwork %>
-      <%# Notes Section %>
-      <div>
-        <%= render partial: 'notes/notes_count', locals: { count: @schoolwork.notes.count } %>
-        <%# Add Note Form %>
-        <%= render partial: 'notes/form', locals: { schoolwork: @schoolwork, note: Note.new } %>
-        <%# Notes List %>
-        <% if @notes.any? %>
-          <%= render 'notes/list', notes: @notes %>
-        <% else %>
-          <p id="notes_list_empty" class="text-base-content/40 text-center py-4">No notes yet</p>
+        <%# Description %>
+        <% if @schoolwork.description.present? %>
+          <div>
+            <h3 class="text-lg font-semibold mb-2 flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M8 6h10" />
+                <path d="M8 12h10" />
+                <path d="M8 18h10" />
+                <path d="M3 6l0 .01" />
+                <path d="M3 12l0 .01" />
+                <path d="M3 18l0 .01" />
+              </svg>
+              Description
+            </h3>
+            <div class="prose max-w-none">
+              <p class="text-base-content/80 whitespace-pre-wrap"><%= @schoolwork.description %></p>
+            </div>
+          </div>
         <% end %>
+        <%# Attachments %>
+        <%= render 'attachments_list', schoolwork: @schoolwork %>
+        <%# Notes Section %>
+        <div>
+          <%= render partial: 'notes/notes_count', locals: { count: @schoolwork.notes.count } %>
+          <%# Add Note Form %>
+          <%= render partial: 'notes/form', locals: { schoolwork: @schoolwork, note: Note.new } %>
+          <%# Notes List %>
+          <% if @notes.any? %>
+            <%= render 'notes/list', notes: @notes %>
+          <% else %>
+            <p id="notes_list_empty" class="text-base-content/40 text-center py-4">No notes yet</p>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
