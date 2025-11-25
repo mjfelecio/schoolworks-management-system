@@ -1,42 +1,64 @@
 <% content_for :title, "Subjects" %>
-<div class="bg-base-200 flex flex-1 p-4 gap-2">
-  <%# Subject List Section %>
-  <div class="section-card basis-[30%] max-h-[600px] flex flex-col">
-    <%# List Header %>
+<div class="bg-base-200 flex flex-1 p-4 gap-4">
+  <!-- ==================== -->
+  <!-- LEFT: SUBJECT LIST SECTION -->
+  <!-- ==================== -->
+  <div class="section-card basis-[35%] max-h-[calc(100vh-120px)] flex flex-col">
+    <!-- List Header -->
     <div class="flex items-center justify-between gap-2 mb-4">
-      <div class="flex items-center gap-2">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-book-2">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-          <path d="M19 4v16h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12z" />
-          <path d="M19 16h-12a2 2 0 0 0 -2 2" />
-          <path d="M9 8h6" />
-        </svg>
-        <h2 class="text-2xl font-semibold">Subjects</h2>
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M19 4v16h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12z" />
+            <path d="M19 16h-12a2 2 0 0 0 -2 2" />
+            <path d="M9 8h6" />
+          </svg>
+        </div>
+        <div>
+          <h2 class="text-2xl font-bold">Subjects</h2>
+          <p class="text-xs text-base-content/60"><%= pluralize(@subjects.count, 'subject') %></p>
+        </div>
       </div>
-      <%= link_to new_subject_path, data: { turbo_frame: "modal_container" }, class: "btn btn-primary" do %>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-library-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 3m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 7.26a2.005 2.005 0 0 0 -1.012 1.737v10c0 1.1 .9 2 2 2h10c.75 0 1.158 -.385 1.5 -1" /><path d="M11 10h6" /><path d="M14 7v6" /></svg>
+      <%= link_to new_subject_path, 
+          data: { turbo_frame: "modal_container" }, 
+          class: "btn btn-primary btn-sm gap-2" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 5v14M5 12h14"/>
+        </svg>
         New
       <% end %>
     </div>
-    <div class="divider mt-0 h-0"></div>
-    <%# Subject List Container %>
-    <div id="subjects_list_container" class="flex flex-1 items-center justify-center overflow-y-auto">
+    <!-- Search Bar -->
+    <div class="mb-3">
+      <label class="input input-bordered input-sm flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 opacity-70">
+          <path fill-rule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clip-rule="evenodd" />
+        </svg>
+        <input type="text" class="grow" placeholder="Search subjects..." />
+      </label>
+    </div>
+    <div class="divider my-2"></div>
+    <!-- Subject List Container -->
+    <div id="subjects_list_container" class="flex-1 overflow-y-auto">
       <% if @subjects.any? %>
-        <ul id="subjects_list" class="self-start w-full divide-y divide-base-300">
+        <ul id="subjects_list" class="space-y-1">
           <%= render @subjects %>
         </ul>
       <% else %>
-        <div id="subjects_list_empty">
+        <div id="subjects_list_empty" class="flex items-center justify-center h-full">
           <%= render "no_subjects" %>
         </div>
       <% end %>
     </div>
   </div>
-  <%# Subject Display %>
-  <div class="basis-[70%] flex flex-col gap-2">
-    <%# Overview Card %>
+  <!-- ==================== -->
+  <!-- RIGHT: SUBJECT DETAILS & SCHOOLWORK -->
+  <!-- ==================== -->
+  <div class="basis-[65%] flex flex-col gap-4">
+    <!-- Overview Card -->
     <%= render "details_placeholder" %>
-    <%# School Works List %>
-    <%= render "school_works", subject: @subjects.first %>
+    <!-- School Works List -->
+    <%= render "schoolworks", subject: @subjects.last %>
   </div>
 </div>

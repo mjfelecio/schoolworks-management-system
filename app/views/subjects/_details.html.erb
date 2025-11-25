@@ -1,25 +1,79 @@
 <%= turbo_frame_tag "subject_details" do %>
-  <div class="section-card">
-    <div class="flex items-center justify-between">
-      <h3 class="text-xl font-bold">Overview</h3>
-      <%# Edit %>
-      <div class="flex items-center">
-        <%= link_to edit_subject_path(subject), data: { turbo_frame: "modal_container" }, class: "btn btn-ghost btn-sm" do %>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>
+  <div class="section-card h-fit">
+    <!-- Header with Actions -->
+    <div class="flex items-start justify-between mb-4">
+      <div class="flex items-center gap-3 flex-1">
+        <div class="avatar placeholder">
+          <div class="bg-primary text-primary-content rounded-xl w-14 h-14">
+            <span class="text-2xl font-bold"><%= subject.name.first.upcase %></span>
+          </div>
+        </div>
+        <div>
+          <h3 class="text-2xl font-bold"><%= subject.name %></h3>
+          <p class="text-sm text-base-content/60">
+            Created <%= time_ago_in_words(subject.created_at) %> ago
+          </p>
+        </div>
+      </div>
+      <!-- Action Buttons -->
+      <div class="flex gap-2">
+        <%= link_to edit_subject_path(subject), 
+            data: { turbo_frame: "modal_container" }, 
+            class: "btn btn-ghost btn-sm btn-square" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+            <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+            <path d="M16 5l3 3" />
+          </svg>
         <% end %>
-        <%# Delete %>
-        <%= button_to subject_path(subject), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-ghost btn-sm" do %>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7h16" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /><path d="M10 12l4 4m0 -4l-4 4" /></svg>
+        <%= button_to subject_path(subject), 
+            method: :delete, 
+            data: { turbo_confirm: "Are you sure? This will also delete all associated schoolwork." }, 
+            class: "btn btn-ghost btn-sm btn-square text-error" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 7h16" />
+            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+            <path d="M10 12l4 4m0 -4l-4 4" />
+          </svg>
         <% end %>
       </div>
     </div>
-    <p class="text-accent-content">
-      <span class="text-base-content font-semibold">Name:</span>
-      <%= subject.name %>
-    </p>
-    <p class="text-accent-content">
-      <span class="text-base-content font-semibold">Description:</span>
-      <%= subject.description || "N/A" %>
-    </p>
+    <!-- Description -->
+    <div class="mb-6">
+      <h4 class="text-sm font-semibold text-base-content/70 mb-2">Description</h4>
+      <div class="p-3 bg-base-200 rounded-lg">
+        <% if subject.description.present? %>
+          <p class="text-sm"><%= subject.description %></p>
+        <% else %>
+          <p class="text-sm text-base-content/50 italic">No description provided</p>
+        <% end %>
+      </div>
+    </div>
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="stat bg-base-200 rounded-lg p-4">
+        <div class="stat-title text-xs">Total Tasks</div>
+        <div class="stat-value text-2xl"><%= subject.schoolworks.count %></div>
+      </div>
+      <div class="stat bg-success/10 rounded-lg p-4">
+        <div class="stat-title text-xs text-success">Completed</div>
+        <div class="stat-value text-2xl text-success">
+          <%= subject.schoolworks.where(status: [:completed, :submitted]).count %>
+        </div>
+      </div>
+      <div class="stat bg-info/10 rounded-lg p-4">
+        <div class="stat-title text-xs text-info">In Progress</div>
+        <div class="stat-value text-2xl text-info">
+          <%= subject.schoolworks.in_progress.count %>
+        </div>
+      </div>
+      <div class="stat bg-error/10 rounded-lg p-4">
+        <div class="stat-title text-xs text-error">Overdue</div>
+        <div class="stat-value text-2xl text-error">
+          <%= subject.schoolworks.overdue.count %>
+        </div>
+      </div>
+    </div>
   </div>
 <% end %>
