@@ -8,4 +8,6 @@
     </div>
   <% end %>
 <% end %>
+<%= turbo_stream.replace("subject_details", partial: "subjects/details_placeholder") %>
+<%= turbo_stream.replace("schoolwork_list_container", partial: "subjects/schoolworks_placeholder") %>
 <%= render_turbo_flash(:success, "Subject #{@subject.name} deleted successfully.") %>
