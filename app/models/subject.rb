@@ -5,6 +5,15 @@ class Subject < ApplicationRecord
 
   scope :alphabetical, -> { order(name: :asc) }
 
+  # Ransack
+  def self.ransackable_attributes(auth_object = nil)
+    [ "name", "description", "created_at" ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [ "schoolworks" ]
+  end
+
   # Helper method for stats
   def schoolwork_stats
     {

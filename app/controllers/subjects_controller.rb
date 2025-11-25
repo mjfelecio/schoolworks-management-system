@@ -3,7 +3,8 @@ class SubjectsController < ApplicationController
 
   # GET /subjects or /subjects.json
   def index
-    @subjects = Subject.all
+    @q = Subject.ransack(params[:q])
+    @subjects = @q.result(distinct: true)
   end
 
   # GET /subjects/1 or /subjects/1.json
