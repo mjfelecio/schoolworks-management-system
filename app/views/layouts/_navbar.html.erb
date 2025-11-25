@@ -21,7 +21,7 @@
         </label>
       </div>
       <div class="navbar-center">
-        <a class="text-xl font-semibold">Schoolworks Management System</a>
+       <%= render 'layouts/logo' %>
       </div>
       <div class="navbar-end">
         <label data-controller="theme" class="flex cursor-pointer gap-2">
@@ -68,9 +68,7 @@
     <label for="sidebar" aria-label="close sidebar" class="drawer-overlay"></label>
     <ul class="menu bg-base-200 min-h-full w-80 p-4">
       <!-- Sidebar content here -->
-      <p class="text-3xl text-base-content text-center font-semibold">
-        Work Organized
-      </p>
+      <%= render 'layouts/logo' %>
       <div class="divider"></div>
       <div class="list">
         <%= link_to(root_path, class: "list-row hover:bg-base-300") do %>
