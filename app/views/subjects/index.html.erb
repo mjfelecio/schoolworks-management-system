@@ -3,7 +3,7 @@
   <!-- ==================== -->
   <!-- LEFT: SUBJECT LIST SECTION -->
   <!-- ==================== -->
-  <div class="section-card basis-[35%] max-h-[calc(100vh-120px)] flex flex-col">
+  <div class="section-card basis-[35%] max-h-[600px] flex flex-col">
     <!-- List Header -->
     <div class="flex items-center justify-between gap-2 mb-4">
       <div class="flex items-center gap-3">
@@ -89,9 +89,15 @@
   <!-- RIGHT: SUBJECT DETAILS & SCHOOLWORK -->
   <!-- ==================== -->
   <div class="basis-[65%] flex flex-col gap-4">
-    <!-- Overview Card -->
-    <%= render "details", subject: @subjects.first %>
-    <!-- School Works List -->
-    <%= render "schoolworks", subject: @subjects.first %>
+    <% if @subjects.present? %>
+      <%= render "details", subject: @subjects.first %>
+      <%= render "schoolworks", subject: @subjects.first %>
+    <% else %>
+      <div class="section-card flex items-center justify-center h-full text-center p-8">
+        <p class="text-base text-base-content/60">
+          No subjects match your search. Adjust your filters or create a new subject.
+        </p>
+      </div>
+    <% end %>
   </div>
 </div>

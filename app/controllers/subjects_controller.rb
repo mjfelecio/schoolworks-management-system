@@ -4,6 +4,7 @@ class SubjectsController < ApplicationController
   # GET /subjects or /subjects.json
   def index
     @q = Subject.ransack(params[:q])
+    @q.sorts = "created_at desc" if @q.sorts.empty?
     @subjects = @q.result(distinct: true)
   end
 
