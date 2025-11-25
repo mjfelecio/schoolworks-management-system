@@ -49,8 +49,8 @@
   color-scheme: "light";
 
   /* BASE — softer, cleaner, more modern */
-  --color-base-100: oklch(98% 0.010 245);  /* paper white with slight cool tint */
-  --color-base-200: oklch(95% 0.020 250);
+  --color-base-100: oklch(97% 0.014 254.604);
+  --color-base-200: oklch(93% 0.032 255.585);
   --color-base-300: oklch(90% 0.035 250);
 
   /* TEXT — cooler, harmonious with base */
@@ -105,7 +105,7 @@
   color-scheme: "dark";
 
   --color-base-100: oklch(18% 0.03 255);     /* deep blue-gray */
-  --color-base-200: oklch(22% 0.04 255);
+  --color-base-200: oklch(25% 0.04 255);
   --color-base-300: oklch(28% 0.05 254);
 
   --color-base-content: oklch(92% 0.015 255); /* soft blue-tinted white */
