@@ -57,8 +57,8 @@
   <!-- ==================== -->
   <div class="basis-[65%] flex flex-col gap-4">
     <!-- Overview Card -->
-    <%= render "details_placeholder" %>
+    <%= render "details", subject: @subjects.first %>
     <!-- School Works List -->
-    <%= render "schoolworks", subject: @subjects.last %>
+    <%= render "schoolworks", subject: @subjects.first %>
   </div>
 </div>

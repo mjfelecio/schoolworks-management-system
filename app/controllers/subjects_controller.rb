@@ -8,6 +8,23 @@ class SubjectsController < ApplicationController
 
   # GET /subjects/1 or /subjects/1.json
   def show
+    respond_to do |format|
+      format.html
+      format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace(
+              "subject_details",
+              partial: "subjects/details",
+              locals: { subject: @subject }
+            ),
+            turbo_stream.replace(
+              "schoolwork_list_container",
+              partial: "subjects/schoolworks",
+              locals: { subject: @subject }
+            )
+          ]
+        end
+    end
   end
 
   # GET /subjects/new

@@ -1,6 +1,6 @@
 <%= link_to subject, 
     id: dom_id(subject), 
-    data: { turbo_frame: "subject_details" } do %>
+    data: { turbo_stream: true } do %>
   <li class="group relative px-4 py-3 rounded-lg transition-all duration-200 hover:bg-base-200 hover:shadow-sm cursor-pointer border border-transparent hover:border-base-300">
     <!-- Active Indicator -->
     <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 bg-primary rounded-r-full transition-all duration-200 group-hover:h-8"></div>
