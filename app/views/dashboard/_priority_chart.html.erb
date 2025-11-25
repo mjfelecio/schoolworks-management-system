@@ -1,6 +1,16 @@
 <div class="card bg-base-100 shadow-lg">
   <div class="card-body">
-    <h2 class="card-title mb-4">🎯 Priority Distribution</h2>
+    <h2 class="card-title mb-4">
+      <svg xmlns="http://www.w3.org/2000/svg" 
+     class="h-6 w-6"
+     fill="none" viewBox="0 0 24 24"
+     stroke="currentColor" stroke-width="2">
+        <rect x="3" y="14" width="4" height="6" rx="1"></rect>
+        <rect x="9" y="10" width="4" height="10" rx="1"></rect>
+        <rect x="15" y="6" width="4" height="14" rx="1"></rect>
+        <path d="M18 3v3l2-1.5L18 3z"></path>
+      </svg>
+      Priority Distribution</h2>
     <% if priorities.any? %>
       <div class="space-y-3">
         <% total = priorities.values.sum %>
