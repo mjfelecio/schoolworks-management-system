@@ -1,0 +1,31 @@
+<div class="card bg-base-100 shadow-lg">
+  <div class="card-body">
+    <h2 class="card-title mb-4">🎯 Priority Distribution</h2>
+    <% if priorities.any? %>
+      <div class="space-y-3">
+        <% total = priorities.values.sum %>
+        <% priorities.each do |priority, count| %>
+          <div>
+            <div class="flex justify-between text-sm mb-1">
+              <span class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full <%= priority == 'high' ? 'bg-error' : priority == 'medium' ? 'bg-warning' : 'bg-gray-400' %>"></span>
+                <%= priority.titleize %>
+              </span>
+              <span class="font-semibold"><%= count %></span>
+            </div>
+            <% percent = (count.to_f / total * 100).round %>
+            <progress 
+              class="progress <%= priority == 'high' ? 'progress-error' : priority == 'medium' ? 'progress-warning' : 'progress-ghost' %> w-full" 
+              value="<%= percent %>" 
+              max="100">
+            </progress>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="text-center py-6 text-gray-500 text-sm">
+        <p>No active tasks</p>
+      </div>
+    <% end %>
+  </div>
+</div>

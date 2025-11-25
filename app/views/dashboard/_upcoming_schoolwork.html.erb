@@ -1,0 +1,41 @@
+<div class="card bg-base-100 shadow-lg">
+  <div class="card-body">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="card-title">📅 Upcoming Schoolwork</h2>
+      <%= link_to "View All", schoolworks_path, class: "btn btn-sm btn-ghost" %>
+    </div>
+    <% if schoolworks.any? %>
+      <div class="space-y-3">
+        <% schoolworks.each do |schoolwork| %>
+          <div class="flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 transition">
+            <div class="flex-1">
+              <div class="flex items-center gap-2">
+                <%= link_to schoolwork.title, schoolwork, class: "font-semibold hover:text-primary" %>
+                <span class="badge badge-sm badge-outline"><%= schoolwork.subject.name %></span>
+              </div>
+              <div class="text-sm text-gray-600 mt-1">
+                <span class="<%= 'text-error font-semibold' if schoolwork.overdue? %>">
+                  Due <%= schoolwork.due_date.strftime("%b %d, %Y") %>
+                </span>
+                <span class="mx-2">•</span>
+                <span><%= schoolwork.schoolwork_type.titleize %></span>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="badge <%= schoolwork.priority_badge_class %> badge-sm">
+                <%= schoolwork.priority.titleize %>
+              </span>
+              <span class="badge <%= schoolwork.status_badge_class %> badge-sm">
+                <%= schoolwork.status.titleize %>
+              </span>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="text-center py-8 text-gray-500">
+        <p>🎉 No upcoming tasks! You're all caught up.</p>
+      </div>
+    <% end %>
+  </div>
+</div>

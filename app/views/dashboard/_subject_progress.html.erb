@@ -1,0 +1,33 @@
+<div class="card bg-base-100 shadow-lg">
+  <div class="card-body">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="card-title">📚 Subject Progress</h2>
+      <%= link_to "View All", subjects_path, class: "btn btn-xs btn-ghost" %>
+    </div>
+    <% if subjects.any? %>
+      <div class="space-y-4">
+        <% subjects.each do |subject| %>
+          <div>
+            <div class="flex justify-between text-sm mb-1">
+              <span class="font-medium truncate"><%= subject.name %></span>
+              <span class="text-gray-600">
+                <%= subject.completed_count %>/<%= subject.total_count %>
+              </span>
+            </div>
+            <% progress_percent = subject.total_count > 0 ? (subject.completed_count.to_f / subject.total_count * 100).round : 0 %>
+            <progress 
+              class="progress progress-primary w-full" 
+              value="<%= progress_percent %>" 
+              max="100">
+            </progress>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="text-center py-6 text-gray-500 text-sm">
+        <p>No subjects yet</p>
+        <%= link_to "Add Subject", new_subject_path, class: "btn btn-xs btn-primary mt-2" %>
+      </div>
+    <% end %>
+  </div>
+</div>

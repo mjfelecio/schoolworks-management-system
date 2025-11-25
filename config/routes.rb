@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root "dashboard#index"
-  get "dashboard", to: "dashboard#index"
+  get "dashboard", to: "dashboard#index", as: :dashboard
 
   resources :subjects do
     resources :schoolworks, only: [ :new, :create ]

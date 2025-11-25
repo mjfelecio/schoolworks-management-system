@@ -1,0 +1,52 @@
+<!-- ============================================ -->
+<!-- FILE: app/views/dashboard/index.html.erb -->
+<!-- Main Dashboard - Keeps logic minimal, uses partials -->
+<!-- ============================================ -->
+<div class="container mx-auto px-4 py-6 max-w-7xl">
+  <!-- ==================== -->
+  <!-- PAGE HEADER -->
+  <!-- ==================== -->
+  <div class="mb-6">
+    <h1 class="text-3xl font-bold mb-2">Dashboard</h1>
+    <p class="text-gray-600">Welcome back! Here's what's happening with your schoolwork.</p>
+  </div>
+  <!-- ==================== -->
+  <!-- ALERT CARDS: Overdue & Due Soon -->
+  <!-- ==================== -->
+  <%= render "dashboard/alerts", 
+      overdue_count: @overdue_count, 
+      due_soon_count: @due_soon_count %>
+  <!-- ==================== -->
+  <!-- STATS CARDS ROW -->
+  <!-- ==================== -->
+  <%= render "dashboard/stats", 
+      total_schoolworks: @total_schoolworks,
+      completed_count: @completed_count,
+      in_progress_count: @in_progress_count,
+      subjects_count: @subjects_count %>
+  <!-- ==================== -->
+  <!-- TWO COLUMN LAYOUT -->
+  <!-- ==================== -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+    <!-- LEFT COLUMN (2/3 width) -->
+    <div class="lg:col-span-2 space-y-6">
+      <!-- Upcoming Schoolwork -->
+      <%= render "dashboard/upcoming_schoolwork", 
+          schoolworks: @upcoming_schoolworks %>
+      <!-- Recent Activity -->
+      <%= render "dashboard/recent_activity", 
+          schoolworks: @recent_schoolworks %>
+    </div>
+    <!-- RIGHT COLUMN (1/3 width) -->
+    <div class="space-y-6">
+      <!-- Quick Actions -->
+      <%= render "dashboard/quick_actions" %>
+      <!-- Subject Progress -->
+      <%= render "dashboard/subject_progress", 
+          subjects: @subjects_with_stats %>
+      <!-- Priority Distribution -->
+      <%= render "dashboard/priority_chart",
+          priorities: @priority_counts %>
+    </div>
+  </div>
+</div>
