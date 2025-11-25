@@ -5,6 +5,10 @@ class DashboardController < ApplicationController
     @overdue_count = Schoolwork.overdue.count
     @due_soon_count = Schoolwork.due_soon.count
 
+    # Get actual overdue and due soon items for the attention card
+    @overdue_schoolworks = Schoolwork.overdue.includes(:subject).order(due_date: :asc).limit(3)
+    @due_soon_schoolworks = Schoolwork.due_soon.includes(:subject).order(due_date: :asc).limit(3)
+
     # Stats for stat cards
     @total_schoolworks = Schoolwork.count
     @completed_count = Schoolwork.where(status: [ :completed, :submitted ]).count

@@ -1,0 +1,109 @@
+<% if overdue_count > 0 || due_soon_count > 0 %>
+  <div class="card bg-base-100 shadow-lg <%= overdue_count > 0 ? 'border-error' : 'border-warning' %>">
+    <div class="card-body">
+      <div class="flex items-start justify-between">
+        <div>
+          <h2 class="card-title text-xl mb-1">
+            <% if overdue_count > 0 %>
+              <svg xmlns="http://www.w3.org/2000/svg"
+				class="h-5 w-5" fill="none"
+				viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path d="M12 2l7 20H5L12 2z"/>
+                <circle cx="12" cy="17" r="1"/>
+                <path d="M12 10v4"/>
+              </svg>
+              Attention Required
+            <% else %>
+              <svg xmlns="http://www.w3.org/2000/svg"
+				class="h-5 w-5" fill="none"
+				viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M12 7v5l3 2"/>
+              </svg>
+              Due Soon
+            <% end %>
+          </h2>
+          <p class="text-sm text-base-content/70">
+            <% if overdue_count > 0 %>
+              You have <%= pluralize(overdue_count, 'overdue task') %>
+              <% if due_soon_count > 0 %>
+                and <%= pluralize(due_soon_count, 'task') %> due soon
+              <% end %>
+            <% else %>
+              <%= pluralize(due_soon_count, 'task') %> due in the next 3 days
+            <% end %>
+          </p>
+        </div>
+        <%= link_to "View All", schoolworks_path(q: { due_date_lt: 7.days.from_now }), 
+            class: "btn btn-sm btn-ghost" %>
+      </div>
+      <div class="divider my-2"></div>
+      <!-- Tabbed Content -->
+      <div role="tablist" class="tabs tabs-boxed rounded-xl bg-base-200">
+        <% if overdue_count > 0 %>
+          <input type="radio" name="attention_tabs" role="tab" class="tab" aria-label="Overdue (<%= overdue_count %>)" checked />
+          <div role="tabpanel" class="tab-content p-4">
+            <div class="space-y-2">
+              <% overdue_schoolworks.each do |schoolwork| %>
+                <div class="flex items-center justify-between p-3 bg-error/10 rounded-lg border border-error/20">
+                  <div class="flex-1 min-w-0">
+                    <%= link_to schoolwork.title, schoolwork, class: "font-semibold hover:text-primary truncate block" %>
+                    <div class="flex items-center gap-2 text-xs text-base-content/70 mt-1">
+                      <span class="badge badge-sm badge-outline"><%= schoolwork.subject.name %></span>
+                      <span>•</span>
+                      <span class="text-error font-semibold">
+                        <%= (Time.current.to_date - schoolwork.due_date.to_date).to_i %> days overdue
+                      </span>
+                    </div>
+                  </div>
+                  <span class="badge <%= schoolwork.priority_badge_class %> badge-sm ml-2">
+                    <%= schoolwork.priority.titleize %>
+                  </span>
+                </div>
+              <% end %>
+              <% if overdue_count > 3 %>
+                <div class="text-center pt-2">
+                  <%= link_to "View all #{overdue_count} overdue tasks →", 
+                      schoolworks_path(q: { due_date_lt: Time.current, status_not_in: ['completed', 'submitted'] }), 
+                      class: "text-sm link link-primary" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+        <% if due_soon_count > 0 %>
+          <input type="radio" name="attention_tabs" role="tab" class="tab" aria-label="Due Soon (<%= due_soon_count %>)" <%= 'checked' if overdue_count == 0 %> />
+          <div role="tabpanel" class="tab-content p-4">
+            <div class="space-y-2">
+              <% due_soon_schoolworks.each do |schoolwork| %>
+                <div class="flex items-center justify-between p-3 bg-warning/10 rounded-lg border border-warning/20">
+                  <div class="flex-1 min-w-0">
+                    <%= link_to schoolwork.title, schoolwork, class: "font-semibold hover:text-primary truncate block" %>
+                    <div class="flex items-center gap-2 text-xs text-base-content/70 mt-1">
+                      <span class="badge badge-sm badge-outline"><%= schoolwork.subject.name %></span>
+                      <span>•</span>
+                      <span class="text-warning font-semibold">
+                        Due <%= schoolwork.due_date.strftime("%b %d") %>
+                        (<%= (schoolwork.due_date.to_date - Time.current.to_date).to_i %> days)
+                      </span>
+                    </div>
+                  </div>
+                  <span class="badge <%= schoolwork.priority_badge_class %> badge-sm ml-2">
+                    <%= schoolwork.priority.titleize %>
+                  </span>
+                </div>
+              <% end %>
+              <% if due_soon_count > 3 %>
+                <div class="text-center pt-2">
+                  <%= link_to "View all #{due_soon_count} tasks due soon →", 
+                      schoolworks_path(q: { due_date_gteq: Time.current, due_date_lteq: 3.days.from_now }), 
+                      class: "text-sm link link-primary" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

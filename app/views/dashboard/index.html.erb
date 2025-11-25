@@ -1,7 +1,4 @@
 <!-- ============================================ -->
-<!-- FILE: app/views/dashboard/index.html.erb -->
-<!-- Main Dashboard - Keeps logic minimal, uses partials -->
-<!-- ============================================ -->
 <div class="container mx-auto px-4 py-6 max-w-7xl">
   <!-- ==================== -->
   <!-- PAGE HEADER -->
@@ -10,12 +7,6 @@
     <h1 class="text-3xl font-bold mb-2">Dashboard</h1>
     <p class="text-base-content/80">Welcome back! Here's what's happening with your schoolwork.</p>
   </div>
-  <!-- ==================== -->
-  <!-- ALERT CARDS: Overdue & Due Soon -->
-  <!-- ==================== -->
-  <%# <%= render "dashboard/alerts", 
-      overdue_count: @overdue_count, 
-      due_soon_count: @due_soon_count %>
   <!-- ==================== -->
   <!-- STATS CARDS ROW -->
   <!-- ==================== -->
@@ -30,6 +21,12 @@
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
     <!-- LEFT COLUMN (2/3 width) -->
     <div class="lg:col-span-2 space-y-6">
+      <!-- Attention Required Card (replaces alerts) -->
+      <%= render "dashboard/attention_required",
+          overdue_count: @overdue_count,
+          due_soon_count: @due_soon_count,
+          overdue_schoolworks: @overdue_schoolworks,
+          due_soon_schoolworks: @due_soon_schoolworks %>
       <!-- Upcoming Schoolwork -->
       <%= render "dashboard/upcoming_schoolwork", 
           schoolworks: @upcoming_schoolworks %>
