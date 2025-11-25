@@ -29,13 +29,22 @@
           </svg>
           <!-- Search Input: searches title and description -->
           <%= f.search_field :title_or_description_cont,
-              placeholder: "Search for schoolworks...",
-              class: "grow text-sm",
-              data: { 
-                action: "input->search-form#submit",
-                search_form_target: "input"
-              } %>
+        placeholder: "Search for schoolworks...",
+        class: "grow text-sm",
+        data: { 
+          action: "input->search-form#submit",
+          search_form_target: "input"
+        } %>
         </label>
+        <% if @schoolworks.present? %>
+          <p class="text-xs text-end text-base-content/60 mt-1">
+            <%= pluralize(@schoolworks.count, "result") %> found
+          </p>
+        <% else %>
+          <p class="text-xs text-end text-base-content/60 mt-1">
+            No results found
+          </p>
+        <% end %>
       </div>
       <!-- Divider: Hidden on mobile, visible on desktop -->
       <div class="divider lg:divider-horizontal m-0 p-0"></div>
