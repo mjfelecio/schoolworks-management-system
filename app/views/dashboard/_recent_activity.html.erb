@@ -1,13 +1,27 @@
 <div class="card bg-base-100 shadow-lg">
   <div class="card-body">
-    <h2 class="card-title mb-4">🕐 Recent Activity</h2>
+    <h2 class="card-title mb-4">
+      <span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <circle cx="12" cy="12" r="9"></circle>
+          <polyline points="12 7 12 12 15 13"></polyline>
+        </svg>
+      </span>
+      Recent Activity</h2>
     <% if schoolworks.any? %>
       <div class="space-y-2">
         <% schoolworks.each do |schoolwork| %>
           <div class="flex items-center gap-3 p-2 hover:bg-base-200 rounded transition">
             <div class="avatar placeholder">
-              <div class="bg-neutral text-neutral-content rounded-full w-10 h-10">
-                <span class="text-xs"><%= schoolwork.schoolwork_type.first.upcase %></span>
+              <div class="bg-neutral text-neutral-content flex items-center justify-center rounded-full w-10 h-10">
+                <span class="text-sm"><%= schoolwork.schoolwork_type.first.upcase %></span>
               </div>
             </div>
             <div class="flex-1 min-w-0">
