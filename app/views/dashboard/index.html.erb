@@ -30,17 +30,17 @@
       <!-- Upcoming Schoolwork -->
       <%= render "dashboard/upcoming_schoolwork", 
           schoolworks: @upcoming_schoolworks %>
-      <!-- Recent Activity -->
-      <%= render "dashboard/recent_activity", 
-          schoolworks: @recent_schoolworks %>
-    </div>
-    <!-- RIGHT COLUMN (1/3 width) -->
-    <div class="space-y-6">
-      <!-- Quick Actions -->
-      <%= render "dashboard/quick_actions" %>
       <!-- Subject Progress -->
       <%= render "dashboard/subject_progress", 
           subjects: @subjects_with_stats %>
+    </div>
+    <!-- RIGHT COLUMN (1/3 width) -->
+    <div class="space-y-6">
+      <!-- Recent Activity -->
+      <%= render "dashboard/recent_activity", 
+          schoolworks: @recent_schoolworks %>
+      <!-- Quick Actions -->
+      <%= render "dashboard/quick_actions" %>
       <!-- Priority Distribution -->
       <%= render "dashboard/priority_chart",
           priorities: @priority_counts %>
