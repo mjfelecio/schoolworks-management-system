@@ -58,7 +58,7 @@ class SchoolworksController < ApplicationController
     @was_archived = true if @schoolwork.kept?
 
     # Archive at first, then delete if already archived
-    @schoolwork.kept? ? @schoolwork.discard! : @schoolwork.destroy!
+    @schoolwork.kept? ? @schoolwork.discard : @schoolwork.destroy!
 
     @schoolworks_empty = Schoolwork.count.zero?
 
@@ -86,7 +86,7 @@ class SchoolworksController < ApplicationController
   end
 
   def restore
-    @schoolwork.undiscard!
+    @schoolwork.undiscard
 
     respond_to do |format|
         format.html { redirect_to @schoolwork, notice: "Schoolwork was successfully restored.", status: :see_other }

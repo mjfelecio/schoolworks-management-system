@@ -122,7 +122,7 @@ class SubjectsController < ApplicationController
   def destroy
     @was_archived = true if @subject.kept?
     # Archive at first, then delete if already archived
-    @subject.kept? ? @subject.discard! : @subject.destroy!
+    @subject.kept? ? @subject.discard : @subject.destroy!
 
     # Check if list is empty AFTER deleting
     @subjects_empty = Subject.count.zero?
@@ -135,7 +135,7 @@ class SubjectsController < ApplicationController
   end
 
   def restore
-    @subject.undiscard!
+    @subject.undiscard
 
     respond_to do |format|
         format.html { redirect_to @subject, notice: "Subject was successfully restored.", status: :see_other }
