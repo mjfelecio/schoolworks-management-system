@@ -130,6 +130,23 @@
                 class: "select select-bordered select-sm w-full",
                 data: { action: "change->search-form#submit" } %>
           </div>
+          <div class="form-control w-full sm:flex-1">
+            <label class="label w-full py-1">
+              <span class="label-text text-xs font-medium">Show</span>
+            </label>
+            <%= f.select :archived_status_eq,
+            options_for_select(
+              [
+                ["Active Only", "active"],
+                ["Archived Only", "archived"],
+                ["All", "all"]
+              ],
+              params.dig(:q, :archived_status_eq) || "active"
+            ),
+            {},
+            class: "select select-bordered select-sm self-end max-w-fit",
+            data: { action: "change->search-form#submit" } %>
+          </div>
           <!-- ========================================= -->
           <!-- Action Buttons: Submit and Clear -->
           <!-- ========================================= -->

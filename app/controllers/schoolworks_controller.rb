@@ -3,7 +3,16 @@ class SchoolworksController < ApplicationController
   before_action :set_schoolwork, only: [ :show, :edit, :update, :destroy, :remove_file ]
 
   def index
-    @q = Schoolwork.ransack(params[:q])
+    q_params = params[:q]&.dup || {}
+
+    # If "all" is selected → remove the predicate so Ransack doesn't apply it
+    if q_params[:archived_status_eq] == "all"
+      q_params.delete(:archived_status_eq)
+    elsif q_params[:archived_status_eq].nil?
+      q_params[:archived_status_eq] = "active"
+    end
+
+    @q = Schoolwork.ransack(q_params)
     @q.sorts = "created_at desc" if @q.sorts.empty?
     @schoolworks = @q.result(distinct: true)
   end

@@ -28,7 +28,6 @@ class Schoolwork < ApplicationRecord
     high: 2
   }
 
-
   # Validations
   validates :title, presence: true
   validates :schoolwork_type, presence: true
@@ -52,7 +51,7 @@ class Schoolwork < ApplicationRecord
 
   # Ransack
   def self.ransackable_attributes(auth_object = nil)
-    [ "created_at", "description", "due_date", "grade", "id", "priority", "schoolwork_type", "status", "subject_id", "submitted_at", "title", "updated_at" ]
+    [ "created_at", "description", "due_date", "grade", "id", "priority", "schoolwork_type", "status", "subject_id", "submitted_at", "title", "updated_at", "discarded_at", "archived_status" ]
   end
 
   def self.ransackable_associations(auth_object = nil)
@@ -61,6 +60,18 @@ class Schoolwork < ApplicationRecord
 
   ransacker :title_or_description do
     Arel.sql("CONCAT(title, ' ', COALESCE(description, ''))")
+  end
+
+  ransacker :archived_status, formatter: proc { |value|
+    case value
+    when "active"   then 0
+    when "archived" then 1
+    end
+  } do |parent|
+    # status = active → discarded_at IS NULL
+    # status = archived → discarded_at IS NOT NULL
+    # status = all → no filtering (we handle this in controller)
+    Arel.sql("CASE WHEN discarded_at IS NULL THEN 0 ELSE 1 END")
   end
 
   # Instance methods
