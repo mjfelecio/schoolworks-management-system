@@ -1,0 +1,3 @@
+<%= turbo_stream.remove dom_id(@subject) %>
+<%= turbo_stream.replace "subject_details", partial: "subjects/details", locals: { subject: @subject } %>
+<%= render_turbo_flash(:success, "#{@subject.name} was successfully restored.") %>

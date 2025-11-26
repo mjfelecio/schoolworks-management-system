@@ -4,6 +4,9 @@ Rails.application.routes.draw do
 
   resources :subjects do
     resources :schoolworks, only: [ :new, :create ]
+    member do
+      patch :restore
+    end
   end
 
   resources :schoolworks do

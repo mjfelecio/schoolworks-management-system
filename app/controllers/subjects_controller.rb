@@ -1,5 +1,5 @@
 class SubjectsController < ApplicationController
-  before_action :set_subject, only: %i[ show edit update destroy ]
+  before_action :set_subject, only: %i[ show edit update destroy restore ]
 
   # GET /subjects or /subjects.json
   def index
@@ -131,6 +131,16 @@ class SubjectsController < ApplicationController
       format.html { redirect_to subjects_path, notice: "Subject was successfully archived.", status: :see_other }
       format.json { head :no_content }
       format.turbo_stream
+    end
+  end
+
+  def restore
+    @subject.undiscard!
+
+    respond_to do |format|
+        format.html { redirect_to @subject, notice: "Subject was successfully restored.", status: :see_other }
+        format.json { render :show, status: :ok, location: @subject }
+        format.turbo_stream
     end
   end
 
