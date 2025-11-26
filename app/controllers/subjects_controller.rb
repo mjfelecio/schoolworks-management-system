@@ -120,7 +120,9 @@ class SubjectsController < ApplicationController
 
   # DELETE /subjects/1 or /subjects/1.json
   def destroy
-    @subject.discard!
+    @was_archived = true if @subject.kept?
+    # Archive at first, then delete if already archived
+    @subject.kept? ? @subject.discard! : @subject.destroy!
 
     # Check if list is empty AFTER deleting
     @subjects_empty = Subject.count.zero?

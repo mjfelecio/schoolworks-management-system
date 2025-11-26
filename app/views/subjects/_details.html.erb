@@ -9,7 +9,11 @@
           </div>
         </div>
         <div>
-          <h3 class="text-2xl font-bold"><%= subject.name %></h3>
+          <h3 class="text-2xl font-bold"><%= subject.name %>
+            <% if subject.discarded?  %>
+              <span class="ml-4 font-bold badge badge-error">Archived</span>
+            <% end %>
+          </h3>
           <p class="text-sm text-base-content/60">
             Created <%= time_ago_in_words(subject.created_at) %> ago
           </p>
@@ -28,8 +32,8 @@
         <% end %>
         <%= button_to subject_path(subject), 
             method: :delete, 
-            data: { turbo_confirm: "Are you sure? This will also delete all associated schoolwork." }, 
-            class: "btn btn-ghost btn-sm btn-square text-error" do %>
+            data: { turbo_confirm: subject.kept? ? "Are you sure? This will also archive all associated schoolworks." : "Are you sure? This will delete the record permanently with all associated schoolworks." }, 
+            class: "btn btn-ghost btn-sm btn-square " + (subject.kept? ? "text-orange-700" : "text-error") do %>
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M4 7h16" />
             <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
