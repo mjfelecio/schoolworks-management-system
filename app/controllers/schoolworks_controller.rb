@@ -56,7 +56,11 @@ class SchoolworksController < ApplicationController
   end
 
   def destroy
-    @schoolwork.destroy!
+    @was_archived = true if @schoolwork.kept?
+
+    # Archive at first, then delete if already archived
+    @schoolwork.kept? ? @schoolwork.discard! : @schoolwork.destroy!
+
     @schoolworks_empty = Schoolwork.count.zero?
 
     respond_to do |format|

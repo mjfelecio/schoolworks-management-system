@@ -15,7 +15,11 @@
               <%= @schoolwork.schoolwork_type.titleize %>
             </span>
           </div>
-          <h1 class="text-3xl font-bold text-base-content wrap-break-words"><%= @schoolwork.title %></h1>
+          <h1 class="text-3xl font-bold text-base-content wrap-break-words"><%= @schoolwork.title %>
+            <% unless @schoolwork.kept?  %>
+              <span class="ml-4 font-bold badge badge-error">Archived</span>
+            <% end %>
+          </h1>
           <div class="flex items-center gap-2 mt-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-base-content/60">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -35,7 +39,10 @@
             </svg>
             Edit
           <% end %>
-          <%= button_to schoolwork_path(@schoolwork), method: :delete, data: { turbo_confirm: "Are you sure you want to delete this schoolwork?" }, class: "btn btn-sm btn-error" do %>
+          <%= button_to schoolwork_path(@schoolwork),
+              method: :delete,
+              data: { turbo_confirm: @schoolwork.kept? ? "Are you sure? This will archive your schoolwork." : "Are you sure you want to delete this schoolwork?" },
+              class: "btn btn-sm " + (@schoolwork.kept? ? "bg-orange-500 text-white" : "btn-error") do %>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
               <path d="M4 7l16 0" />
@@ -44,7 +51,7 @@
               <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
               <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
             </svg>
-            Delete
+            <%= @schoolwork.kept? ? "Archive" : "Delete" %>
           <% end %>
         </div>
       </div>

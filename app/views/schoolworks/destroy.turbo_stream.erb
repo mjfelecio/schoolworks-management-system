@@ -8,4 +8,4 @@
     </div>
   <% end %>
 <% end %>
-<%= render_turbo_flash(:success, "Schoolwork #{@schoolwork.title} deleted successfully.") %>
+<%= render_turbo_flash(:success, "Schoolwork #{@schoolwork.title} #{@was_archived ? "archived" : "deleted"} successfully.") %>
