@@ -1,15 +1,17 @@
-<p class="text-3xl flex flex-row self-center items-end text-base-content text-center font-extrabold">
-  <svg class="size-10 mr-0.5" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg" fill="none">
-    <!-- Outer container -->
-    <rect x="10" y="10" width="120" height="120" rx="20" stroke="currentColor" stroke-width="12"/>
-    <!-- L-shaped structure -->
-    <path d="M45 35 V100 A5 5 0 0 0 50 105 H105" 
+<div class="flex justify-center items-center h-full">
+  <%= link_to root_path, class: "flex flex-row items-center text-center" do %>
+    <svg class="w-10 h-10 mb-1" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg" fill="none">
+      <!-- Outer container -->
+      <rect x="10" y="10" width="120" height="120" rx="20" stroke="currentColor" stroke-width="12"/>
+      <!-- L-shaped structure -->
+      <path d="M45 35 V100 A5 5 0 0 0 50 105 H105" 
           stroke="currentColor" 
           stroke-width="14" 
           stroke-linecap="round" 
           stroke-linejoin="round"/>
-    <!-- Page-fold detail -->
-    <path d="M90 30 L110 50 L90 50 Z" fill="currentColor"/>
-  </svg>
-  exicon
-</p>
+      <!-- Page-fold detail -->
+      <path d="M90 30 L110 50 L90 50 Z" fill="currentColor"/>
+    </svg>
+    <span class="text-3xl font-extrabold text-base-content">exicon</span>
+  <% end %>
+</div>
