@@ -9,11 +9,23 @@ class Subject < ApplicationRecord
 
   # Ransack
   def self.ransackable_attributes(auth_object = nil)
-    [ "name", "description", "created_at" ]
+    [ "name", "description", "created_at", "discarded_at", "archived_status" ]
   end
 
   def self.ransackable_associations(auth_object = nil)
     [ "schoolworks" ]
+  end
+
+  ransacker :archived_status, formatter: proc { |value|
+    case value
+    when "active"   then 0
+    when "archived" then 1
+    end
+  } do |parent|
+    # status = active → discarded_at IS NULL
+    # status = archived → discarded_at IS NOT NULL
+    # status = all → no filtering (we handle this in controller)
+    Arel.sql("CASE WHEN discarded_at IS NULL THEN 0 ELSE 1 END")
   end
 
   # Helper method for stats

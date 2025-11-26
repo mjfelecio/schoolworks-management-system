@@ -3,8 +3,20 @@ class SubjectsController < ApplicationController
 
   # GET /subjects or /subjects.json
   def index
-    @q = Subject.ransack(params[:q])
+    # Duplicate params so modifying them doesn't break the original hash
+    q_params = params[:q]&.dup || {}
+
+    # If "all" is selected → remove the predicate so Ransack doesn't apply it
+    if q_params[:archived_status_eq] == "all"
+      q_params.delete(:archived_status_eq)
+    elsif q_params[:archived_status_eq].nil?
+      q_params[:archived_status_eq] = "active"
+    end
+
+    @q = Subject.ransack(q_params)
+
     @q.sorts = "created_at desc" if @q.sorts.empty?
+
     @subjects = @q.result(distinct: true)
   end
 
@@ -108,13 +120,13 @@ class SubjectsController < ApplicationController
 
   # DELETE /subjects/1 or /subjects/1.json
   def destroy
-    @subject.destroy!
+    @subject.discard!
 
     # Check if list is empty AFTER deleting
     @subjects_empty = Subject.count.zero?
 
     respond_to do |format|
-      format.html { redirect_to subjects_path, notice: "Subject was successfully destroyed.", status: :see_other }
+      format.html { redirect_to subjects_path, notice: "Subject was successfully archived.", status: :see_other }
       format.json { head :no_content }
       format.turbo_stream
     end
