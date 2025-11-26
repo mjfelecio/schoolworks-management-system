@@ -1,4 +1,6 @@
 class Subject < ApplicationRecord
+  include Discard::Model
+
   has_many :schoolworks, dependent: :destroy
 
   validates :name, presence: true

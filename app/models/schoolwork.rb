@@ -1,4 +1,6 @@
 class Schoolwork < ApplicationRecord
+  include Discard::Model
+
   # Associations
   belongs_to :subject
   has_many :notes, dependent: :destroy
@@ -38,6 +40,7 @@ class Schoolwork < ApplicationRecord
   validate :acceptable_files
 
   # Scopes
+  scope :kept, -> { undiscarded.joins(:subject).merge(Subject.kept) } # Ensures that only those that schoolworks with archived Subject wont be shown
   scope :due_soon, -> { where("due_date <= ?", 3.days.from_now).where("due_date >= ?", Time.current) }
   scope :overdue, -> { where("due_date < ?", Time.current).where.not(status: [ :completed, :submitted ]) }
   scope :by_priority, -> { order(priority: :desc) }
@@ -61,6 +64,10 @@ class Schoolwork < ApplicationRecord
   end
 
   # Instance methods
+  def kept?
+    undiscarded? && subject.kept?
+  end
+
   def overdue?
     due_date.present? && due_date < Time.current && !completed? && !submitted?
   end
