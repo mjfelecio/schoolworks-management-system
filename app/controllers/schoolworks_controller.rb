@@ -1,6 +1,6 @@
 class SchoolworksController < ApplicationController
   before_action :set_subjects, only: [ :edit, :new, :create, :show ]
-  before_action :set_schoolwork, only: [ :show, :edit, :update, :destroy, :remove_file ]
+  before_action :set_schoolwork, only: [ :show, :edit, :update, :destroy, :remove_file, :restore ]
 
   def index
     q_params = params[:q]&.dup || {}
@@ -18,7 +18,6 @@ class SchoolworksController < ApplicationController
   end
 
   def show
-    @notes = @schoolwork.notes.order(updated_at: :desc)
   end
 
   def new
@@ -83,6 +82,16 @@ class SchoolworksController < ApplicationController
             turbo_stream.update("notice", "File was successfully destroyed.")
           ]
         end
+    end
+  end
+
+  def restore
+    @schoolwork.undiscard!
+
+    respond_to do |format|
+        format.html { redirect_to @schoolwork, notice: "Schoolwork was successfully restored.", status: :see_other }
+        format.json { render :show, status: :ok, location: @schoolwork }
+        format.turbo_stream
     end
   end
 

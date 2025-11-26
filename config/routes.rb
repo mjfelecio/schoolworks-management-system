@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resources :notes
     member do
       delete "remove_file/:file_id", to: "schoolworks#remove_file", as: "remove_file"
+      patch :restore
     end
   end
 

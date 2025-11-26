@@ -1,0 +1,3 @@
+<%= turbo_stream.remove dom_id(@schoolwork) %>
+<%= turbo_stream.replace("schoolwork_details", partial: "schoolworks/details", locals: { schoolwork: @schoolwork }) %>
+<%= render_turbo_flash(:success, "#{@schoolwork.title} was successfully restored.") %>
