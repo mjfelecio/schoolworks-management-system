@@ -1,7 +1,11 @@
 <% content_for :title, "Schoolworks" %>
-<div class="bg-base-200 flex flex-1 p-4 gap-2">
+<div class="bg-base-200 grid grid-cols-1 md:grid-cols-6 p-4 gap-2">
+  <!-- Mobile toolbar (shows only < md) -->
+  <div class="col-span-1 md:hidden order-1">
+    <%= render "toolbar" %>
+  </div>
   <%# Schoolworks List Section %>
-  <div class="section-card basis-[30%] max-h-[600px] flex flex-col">
+  <div class="section-card col-span-1 md:col-span-2 max-h-[600px] flex flex-col order-2 md:order-1">
     <%# List Header %>
     <div class="flex items-center justify-between gap-2 mb-4">
       <div class="flex items-center gap-2">
@@ -39,9 +43,14 @@
     </div>
   </div>
   <%# Schoolwork Display %>
-  <div class="basis-[70%] flex flex-col gap-2">
-    <%= render "toolbar" %>
-    <%# Details Card %>
-    <%= render "details_placeholder" %>
+  <div class="col-span-1 md:col-span-4 order-3 md:order-2 flex flex-col gap-2">
+    <!-- Desktop toolbar (hidden on mobile) -->
+    <div class="hidden md:block">
+      <%= render "toolbar" %>
+    </div>
+    <!-- Details -->
+    <div class="flex-1">
+      <%= render "details_placeholder" %>
+    </div>
   </div>
 </div>
