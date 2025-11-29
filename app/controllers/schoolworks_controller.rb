@@ -12,7 +12,7 @@ class SchoolworksController < ApplicationController
       q_params[:archived_status_eq] = "active"
     end
 
-    @q = Schoolwork.ransack(q_params)
+    @q = Schoolwork.joins(:subject).ransack(q_params)
     @q.sorts = "created_at desc" if @q.sorts.empty?
     @schoolworks = @q.result(distinct: true)
   end
