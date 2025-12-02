@@ -4,19 +4,14 @@
       <%= turbo_frame_tag "subject_modal_frame" do %>
         <h3 class="text-xl font-bold"><%= subject.new_record? ? "New Subject" : "Edit Subject" %></h3>
         <%= form_with(model: subject, data: { turbo_frame: "subject_modal_frame" }, class: "contents") do |form| %>
-          <% if subject.errors.any? %>
-            <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
-              <h2><%= pluralize(subject.errors.count, "error") %> prohibited this subject from being saved:</h2>
-              <ul class="list-disc ml-6">
-                <% subject.errors.each do |error| %>
-                  <li><%= error.full_message %></li>
-                <% end %>
-              </ul>
-            </div>
-          <% end %>
           <div class="my-5">
-            <%= form.label :name %>
-            <%= form.text_field :name, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": subject.errors[:name].none?, "border-red-400 focus:outline-red-600": subject.errors[:name].any?}] %>
+            <%= form.label :name do %>
+              Name <span class="text-error">*</span>
+            <% end %>
+            <%= form.text_field :name, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": subject.errors[:name].none?, "border-error focus:outline-error": subject.errors[:name].any?}] %>
+            <% if subject.errors.any? %>
+              <p class="list-disc text-error ml-2">• <%= subject.errors.first.full_message %></p>
+            <% end %>
           </div>
           <div class="my-5">
             <%= form.label :description %>
