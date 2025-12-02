@@ -1,9 +1,9 @@
 <% content_for :title, "Subjects" %>
-<div class="bg-base-200 flex flex-1 p-4 gap-4">
+<div class="bg-base-200 grid grid-cols-1 md:grid-cols-6 p-4 gap-2">
   <!-- ==================== -->
   <!-- LEFT: SUBJECT LIST SECTION -->
   <!-- ==================== -->
-  <div class="section-card basis-[35%] max-h-[600px] flex flex-col">
+  <div class="section-card col-span-1 md:col-span-2 max-h-[600px] flex flex-col">
     <!-- List Header -->
     <div class="flex items-center justify-between gap-2 mb-4">
       <div class="flex items-center gap-3">
@@ -102,10 +102,12 @@
   <!-- ==================== -->
   <!-- RIGHT: SUBJECT DETAILS & SCHOOLWORK -->
   <!-- ==================== -->
-  <div class="basis-[65%] flex flex-col gap-4">
+  <div class="col-span-1 md:col-span-4">
     <% if @subjects.present? %>
-      <%= render "details", subject: @subjects.first %>
-      <%= render "schoolworks", subject: @subjects.first %>
+      <div class="flex flex-col gap-2">
+        <%= render "details", subject: @subjects.first %>
+        <%= render "schoolworks", subject: @subjects.first %>
+      </div>
     <% else %>
       <div class="section-card flex items-center justify-center h-full text-center p-8">
         <p class="text-base text-base-content/60">
