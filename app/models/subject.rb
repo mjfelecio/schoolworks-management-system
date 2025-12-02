@@ -9,7 +9,7 @@ class Subject < ApplicationRecord
 
   # Ransack
   def self.ransackable_attributes(auth_object = nil)
-    [ "name", "description", "created_at", "discarded_at", "archived_status" ]
+    [ "name", "description", "created_at", "discarded_at", "archived_status", "id" ]
   end
 
   def self.ransackable_associations(auth_object = nil)

@@ -26,7 +26,12 @@
               <path d="M19 4v16h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12z" />
               <path d="M19 16h-12a2 2 0 0 0 -2 2" />
             </svg>
-            <span class="text-lg text-base-content/80"><%= schoolwork.subject.name %></span>
+            <span class="text-lg text-base-content/80">
+              <%= link_to schoolwork.subject.name,
+                  subjects_path(q: { id_eq: schoolwork.subject.id }),
+                  data: { turbo_frame: "_top" },
+                  class: "link link-hover" %>
+            </span>
           </div>
         </div>
         <div class="flex gap-2">
