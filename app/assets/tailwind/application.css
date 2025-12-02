@@ -48,43 +48,43 @@
   prefersdark: false;
   color-scheme: "light";
 
-  /* BASE — softer, cleaner, more modern */
+  /* BASE */
   --color-base-100: oklch(97% 0.014 254.604);
   --color-base-200: oklch(93% 0.032 255.585);
   --color-base-300: oklch(90% 0.035 250);
 
-  /* TEXT — cooler, harmonious with base */
+  /* TEXT */
   --color-base-content: oklch(32% 0.115 260); /* charcoal blue-grey */
 
-  /* PRIMARY — refined ocean blue, slightly more character */
+  /* PRIMARY */
   --color-primary: oklch(78% 0.12 230);
   --color-primary-content: oklch(28% 0.10 245);
 
-  /* SECONDARY — warm sand tone (balanced with primary’s coolness) */
+  /* SECONDARY */
   --color-secondary: oklch(88% 0.09 85);
   --color-secondary-content: oklch(30% 0.08 70);
 
-  /* ACCENT — soft neutral silver, premium feel */
+  /* ACCENT */
   --color-accent: oklch(92% 0.02 260);
   --color-accent-content: oklch(30% 0.03 260);
 
-  /* NEUTRALS — slightly cool, balanced with content */
+  /* NEUTRALS */
   --color-neutral: oklch(35% 0.07 260);
   --color-neutral-content: oklch(98% 0.010 245);
 
-  /* INFO — calmer cyan tuned to theme */
+  /* INFO */
   --color-info: oklch(70% 0.12 210);
   --color-info-content: oklch(98% 0.015 220);
 
-  /* SUCCESS — fresh green, softer but confident */
+  /* SUCCESS */
   --color-success: oklch(72% 0.14 150);
   --color-success-content: oklch(98% 0.015 150);
 
-  /* WARNING — subtle amber/dijon */
+  /* WARNING */
   --color-warning: oklch(80% 0.12 80);
   --color-warning-content: oklch(20% 0.06 80);
 
-  /* ERROR — softer but still visible red */
+  /* ERROR */
   --color-error: oklch(62% 0.20 30);
   --color-error-content: oklch(98% 0.015 25);
 
@@ -110,23 +110,23 @@
 
   --color-base-content: oklch(92% 0.015 255); /* soft blue-tinted white */
 
-  /* PRIMARY — inverted from your light primary */
+  /* PRIMARY */
   --color-primary: oklch(63% 0.12 252);
   --color-primary-content: oklch(95% 0.018 255);
 
-  /* SECONDARY — warm, complementary to cyan tones */
+  /* SECONDARY */
   --color-secondary: oklch(68% 0.14 66);
   --color-secondary-content: oklch(96% 0.02 60);
 
-  /* ACCENT — almost-neutral accent, same style */
+  /* ACCENT */
   --color-accent: oklch(70% 0.01 56);
   --color-accent-content: oklch(95% 0.005 56);
 
-  /* NEUTRAL — matches your light theme content color logic */
+  /* NEUTRAL */
   --color-neutral: oklch(25% 0.07 265);
   --color-neutral-content: oklch(94% 0.02 255);
 
-  /* STATUS COLORS (mirrored lightness from your light theme) */
+  /* STATUS COLORS */
   --color-info: oklch(55% 0.14 222);
   --color-info-content: oklch(94% 0.02 220);
 
