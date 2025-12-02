@@ -1,1 +1,9 @@
-<%= render 'details', schoolwork: @schoolwork %>
+<div class="flex flex-1 flex-col mx-auto max-w-5xl">
+  <div class="flex p-4 items-center gap-2 text-sm breadcrumbs">
+    <ul>
+      <li><%= link_to "Schoolworks", schoolworks_path, class: "link link-hover" %></li>
+      <li class="text-base-content/60"> <%= @schoolwork.title %> </li>
+    </ul>
+  </div>
+  <%= render 'details', schoolwork: @schoolwork %>
+</div>
